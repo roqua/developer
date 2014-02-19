@@ -44,7 +44,8 @@
   <div id="wrapper">
   	<div class="content">
     	<ul id="markdown-toc">
-<li><a href="#api-call">API Call</a></li>
+<li><a href="#sso-url">SSO URL</a></li>
+  <li><a href="#parameters">Parameters</a></li>
   <li><a href="#example-implementation-both-client-and-server">Example implementation, both client and server</a></li>
   <li><a href="#todo">TODO</a></li>
   <li><a href="#references">References</a></li>
@@ -54,14 +55,17 @@
 
 <p>In order to ensure URLs cannot be used more than once, a nonce must be supplied as one of the parameters.</p>
 
-<p>A <a href="https://github.com/roqua/authmac">reference implementation</a> is available. See the <em><a href="#example">Example</a></em> section below for more information.</p>
+<p>A <a href="https://github.com/roqua/authmac">reference implementation</a> is available. See the <em><a href="#example-implementation-both-client-and-server">Example</a></em> section below for more information.</p>
 
-<h2 id="api-call">API Call</h2>
+<h2 id="sso-url">SSO URL</h2>
 
 <p>To open RoQua EPD-interface as a given user for a given dossier, tell a browser
 window or frame to navigate to:</p>
 
-<p><code>https://epd.#(GGZ_NAME).roqua.nl/epd/session/create</code></p>
+<pre><code>https://epd.:ggzname.roqua.nl/epd/session/create
+</code></pre>
+
+<h2 id="parameters">Parameters</h2>
 
 <p>To this URL, you must add a number of query parameters (i.e. <code>?key=value&amp;foo=bar&amp;baz=quux</code>). These parameters are used for specifying the user to be logged in, the dossier to be shown, and authenticating that the request is signed by a valid authority.</p>
 
@@ -159,8 +163,8 @@ value-of-bar|value-of-foo|1359373315
       <li class="js-topic">
         <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/v1/sso/">Single Sign On</a></h3>
         <ul class="js-guides">
-          <li><a href="/developer/v1/sso/patient_dossier/">Dossiers</a></li>
-          <li><a href="/developer/v1/sso/completing_questionnaires/">Completing questionnaires</a></li>
+          <li><a href="/developer/v1/sso/patient_dossier/">Log in as professional</a></li>
+          <li><a href="/developer/v1/sso/completing_questionnaires/">Log in to fill out questionnaires</a></li>
         </ul>
       </li>
       <li class="js-topic">

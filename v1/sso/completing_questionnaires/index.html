@@ -45,16 +45,17 @@
   	<div class="content">
     	<p>The login for a patient (or other respondents for a dossier) is normally done by entering a token which the person has received by e-mail or snailmail. It’s also possible to open the login URL with this token prefilled as a query parameter, in which case the login will happen automatically and the person will be presented the first pending questionnaire immediately.</p>
 
-<h2 id="api-call">API Call</h2>
+<h2 id="sso-url">SSO URL</h2>
 
 <p>To open RoQua client-interface and start filling in pending questionnaires, tell a browser
 window or frame to navigate to:</p>
 
-<p><code>https://#(GGZ_NAME).roqua.nl/login</code></p>
-
-<p>To this URL, you may add a number of query parameters (i.e. <code>?key=value&amp;foo=bar&amp;baz=quux</code>). These parameters are used for specifying the token to be logged in.</p>
+<pre><code>https://:ggzname.roqua.nl/login
+</code></pre>
 
 <h2 id="parameters">Parameters</h2>
+
+<p>To this URL, you may add a number of query parameters. These parameters are used for specifying the token to be logged in, and specifying additional behaviour.</p>
 
 <table>
 <thead><tr>
@@ -96,8 +97,8 @@ window or frame to navigate to:</p>
       <li class="js-topic">
         <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/v1/sso/">Single Sign On</a></h3>
         <ul class="js-guides">
-          <li><a href="/developer/v1/sso/patient_dossier/">Dossiers</a></li>
-          <li><a href="/developer/v1/sso/completing_questionnaires/">Completing questionnaires</a></li>
+          <li><a href="/developer/v1/sso/patient_dossier/">Log in as professional</a></li>
+          <li><a href="/developer/v1/sso/completing_questionnaires/">Log in to fill out questionnaires</a></li>
         </ul>
       </li>
       <li class="js-topic">
