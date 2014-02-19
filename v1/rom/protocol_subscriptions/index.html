@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Language" content="en-us" />
   <meta http-equiv="imagetoolbar" content="false" />
   <meta name="MSSmartTagsPreventParsing" content="true" />
-  <title>Protocol Subscriptions | RoQua API</title>
+  <title>Protocol Subscriptions | RoQua ROM API</title>
   <link href="/developer/assets/css/reset.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/960.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/uv_active4d.css" rel="stylesheet" type="text/css" />
@@ -66,12 +66,12 @@
 <td><code>protocol_key</code></td>
       <td><code>string</code></td>
       <td>
-<strong>Required</strong>. The commit message.</td>
+<strong>Required</strong>. Key uniquely identifying the protocol of interest as specified in RoQua.</td>
     </tr>
 <tr>
 <td><code>start_at</code></td>
       <td><code>integer</code></td>
-      <td>The blob SHA of the file being replaced. Defaults to the current time.</td>
+      <td>The Unix time when the first measurement should be prepared. Defaults to the current time.</td>
     </tr>
 </tbody>
 </table><h3 id="success">Success</h3>
@@ -96,7 +96,7 @@
 <pre class="headers no-response"><code>Status: 404 Not Found</code></pre>
 
 <pre><code class="language-javascript"><span class="p">{</span>
-  <span class="s2">"error"</span><span class="o">:</span> <span class="s2">"Protocol not found"</span>
+  <span class="s2">"error"</span><span class="o">:</span> <span class="s2">"Protocol with key 'protocol_key' not found"</span>
 <span class="p">}</span></code></pre>
     </div>
 
