@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Language" content="en-us" />
   <meta http-equiv="imagetoolbar" content="false" />
   <meta name="MSSmartTagsPreventParsing" content="true" />
-  <title>Responses | RoQua API</title>
+  <title>Responses | RoQua Developer Docs</title>
   <link href="/developer/assets/css/reset.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/960.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/uv_active4d.css" rel="stylesheet" type="text/css" />
@@ -30,7 +30,10 @@
 </div><!-- #header-wrapper -->
 
 	<div class="sub-nav">
-		<h2><a href="/developer/v1/">API</a></h2>
+		<h2>
+      Responses
+      <span class="status status-"></span>
+    </h2>
 
 		<ul>
       <li><a href="/developer/v1/" class="active">Reference</a></li>
@@ -40,9 +43,7 @@
 
   <div id="wrapper">
   	<div class="content">
-    	<h1 id="contents">Contents</h1>
-
-<ul id="markdown-toc">
+    	<ul id="markdown-toc">
 <li><a href="#parameters">Parameters</a></li>
   <li><a href="#response">Response</a></li>
 </ul><p>Responses are questionnaire completions, although they need not be filled out yet. Upon creating an invitation, responses for all selected questionnaires are created. At this point, the responses have status <code>new</code>. When the patient fills out the questionnaire for the answer, its status will change to <code>completed</code>.</p>
@@ -168,7 +169,6 @@
         <ul class="js-guides">
           <li><a href="/developer/v1/hl7/a19/">A19</a></li>
           <li><a href="/developer/v1/hl7/oru/">ORU</a></li>
-          <li><a href="/developer/v1/hl7/ports/">Ports</a></li>
         </ul>
       </li>
     </ul>
