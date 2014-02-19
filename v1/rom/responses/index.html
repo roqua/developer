@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="Content-Language" content="en-us" />
+  <meta http-equiv="imagetoolbar" content="false" />
+  <meta name="MSSmartTagsPreventParsing" content="true" />
+  <title>Responses | RoQua API</title>
+  <link href="/css/reset.css" rel="stylesheet" type="text/css" />
+  <link href="/css/960.css" rel="stylesheet" type="text/css" />
+  <link href="/css/uv_active4d.css" rel="stylesheet" type="text/css" />
+  <link href="/shared/css/documentation.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="/shared/css/pygments.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="/shared/js/jquery.js" type="text/javascript"></script>
+  <script src="/shared/js/documentation.js" type="text/javascript"></script>
+</head>
+
+<body class="api">
+	<div id="header-wrapper">
+  <div id="header">
+    <div>
+      <a class="logo" href="/">RoQua Developer</a>
+      <ul class="nav">
+        <li><a href="/" class="nav-overview">Overview</a></li>
+        <li><a href="/v1/" class="nav-api">API v1</a></li>
+        <li><a href="http://roqua.nl/contact">Support</a></li>
+      </ul>
+    </div>
+  </div><!-- #header -->
+</div><!-- #header-wrapper -->
+
+	<div class="sub-nav">
+		<h2><a href="/v1/">API</a></h2>
+
+		<ul>
+      <li><a href="/v1/" class="active">Reference</a></li>
+      <li><a href="/libraries/">Libraries</a></li>
+		</ul>
+	</div>
+
+  <div id="wrapper">
+  	<div class="content">
+    	<h1 id="contents">Contents</h1>
+
+<ul id="markdown-toc">
+<li><a href="#parameters">Parameters</a></li>
+  <li><a href="#response">Response</a></li>
+</ul><p>Responses are questionnaire completions, although they need not be filled out yet. Upon creating an invitation, responses for all selected questionnaires are created. At this point, the responses have status <code>new</code>. When the patient fills out the questionnaire for the answer, its status will change to <code>completed</code>.</p>
+
+<p>Requests for responses are namespaced under a specific <a href="https://github.com/roqua/developer/blob/master/api/v1/dossiers.md">dossier</a>, which is the <code>/api/v1/dossiers/DOSSIER_ID</code> path. In this path <code>DOSSIER_ID</code> is the external identifier used by the EPD to represent this patient.</p>
+
+<h2 id="parameters">Parameters</h2>
+
+<ul>
+<li>
+<code>respondent_type</code> - Request only responses where the <code>completer_type</code> would equal the given value. See the <code>completer_type</code> response attribute for a list of valid values.</li>
+  <li>
+<code>status</code>          - Request only responses where the <code>status</code> would equal the given value. See the <code>status</code> attribute for a list of valid values.</li>
+</ul><h2 id="response">Response</h2>
+
+<ul>
+<li>
+<code>GET /api/v1/dossiers/123/responses.json</code> will return a list of questionnaires that will be presented to the user when he logs in with that token.</li>
+</ul><pre class="headers"><code>Status: 200 OK</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"responses"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"OQ-45"</span><span class="p">,</span>
+      <span class="s2">"status"</span><span class="o">:</span> <span class="s2">"scheduled"</span><span class="p">,</span>
+      <span class="s2">"open_from"</span><span class="o">:</span> <span class="s2">"2012-11-23T12:40:20+00:00+0200"</span><span class="p">,</span>
+      <span class="s2">"open_till"</span><span class="o">:</span> <span class="s2">"2012-11-25T12:40:20+00:00+0200"</span><span class="p">,</span>
+      <span class="s2">"completer_type"</span><span class="o">:</span> <span class="s2">"patient"</span><span class="p">,</span>
+      <span class="s2">"completed_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"completing_url"</span><span class="o">:</span> <span class="s2">"https://demo.roqua.nl/login?token=abcdefgh"</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"OQ-45"</span><span class="p">,</span>
+      <span class="s2">"status"</span><span class="o">:</span> <span class="s2">"open"</span><span class="p">,</span>
+      <span class="s2">"open_from"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"open_till"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"completer_type"</span><span class="o">:</span> <span class="s2">"parent"</span><span class="p">,</span>
+      <span class="s2">"completed_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"completing_url"</span><span class="o">:</span> <span class="s2">"https://demo.roqua.nl/login?token=abcdefgh"</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"OQ-45"</span><span class="p">,</span>
+      <span class="s2">"status"</span><span class="o">:</span> <span class="s2">"completed"</span><span class="p">,</span>
+      <span class="s2">"open_from"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"open_till"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"completer_type"</span><span class="o">:</span> <span class="s2">"patient"</span><span class="p">,</span>
+      <span class="s2">"completed_at"</span><span class="o">:</span> <span class="s2">"2012-11-20T15:40:20+00:00+0200"</span><span class="p">,</span>
+      <span class="s2">"completing_url"</span><span class="o">:</span> <span class="kc">null</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span></code></pre>
+
+<h3 id="response-attributes">Response Attributes</h3>
+
+<ul>
+<li>
+<code>name</code> - The name of the response.</li>
+  <li>
+<code>status</code> - One of the following values:
+    <ul>
+<li>
+<code>scheduled</code> - This response is scheduled to be completed at a later time.
+              Cannot be completed right now, and visiting its URL will
+              not result in this response being presented. See <code>open_from</code>
+              and <code>open_till</code> attributes for the time window when this
+              response will be <code>open</code>.</li>
+      <li>
+<code>open</code>      - This response is completable right now.</li>
+      <li>
+<code>completed</code> - This response has been completed.</li>
+    </ul>
+</li>
+  <li>
+<code>open_from</code> - An ISO 8601 formatted string that indicates when the response becomes
+              completable, or <code>null</code> if this response is not only completable within a
+              specific time window.</li>
+  <li>
+<code>open_till</code> - An ISO 8601 formatted string that indicates when the response expires and is
+              no longer completable, or <code>null</code> if this response is not only completable
+              within a specific time window.</li>
+  <li>
+<code>completer_type</code> - Describes for whom this response is intended. Can be <code>patient</code>,
+                   <code>professional</code>, <code>parent</code>, <code>second_parent</code> or <code>teacher</code>. More types
+                   might be added later, therefore it is advised that API consumers
+                   select the desired types, and not reject the undesired types.</li>
+  <li>
+<code>completed_at</code> - An ISO 8601 formatted string that indicates when the response was completed,
+                 or <code>null</code> if this response is not yet completed.</li>
+  <li>
+<code>completing_url</code> - The URL that can be visited to complete this (and possibly
+                   other) response(s). Will be <code>null</code> if response is already completed.</li>
+</ul>
+    </div>
+
+		<div id="js-sidebar" class="sidebar-shell">
+  <div class="js-toggle-list sidebar-module expandable">
+    <ul>
+      <li class="js-topic">
+        <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/v1/">Overview</a></h3>
+        <ul class="js-guides">
+          <li><a href="/v1/authentication/">Authentication</a></li>
+          <li><a href="/v1/rider/">Rider</a></li>
+        </ul>
+      </li>
+      <li class="js-topic">
+        <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/v1/sso/">Single Sign On</a></h3>
+        <ul class="js-guides">
+          <li><a href="/v1/sso/patient_dossier/">Dossiers</a></li>
+          <li><a href="/v1/sso/completing_questionnaires/">Completing questionnaires</a></li>
+        </ul>
+      </li>
+      <li class="js-topic">
+        <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/v1/rom/">RoQua ROM</a></h3>
+        <ul class="js-guides">
+          <li><a href="/v1/rom/dossiers/">Dossiers</a></li>
+          <li><a href="/v1/rom/responses/">Responses</a></li>
+          <li><a href="/v1/rom/protocol_subscriptions/">Protocol Subscriptions</a></li>
+          <li><a href="/v1/rom/tokens/">Patient login tokens</a></li>
+        </ul>
+      </li>
+      <li class="js-topic">
+        <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/v1/hl7/">HL7</a></h3>
+        <ul class="js-guides">
+          <li><a href="/v1/hl7/a19/">A19</a></li>
+          <li><a href="/v1/hl7/oru/">ORU</a></li>
+          <li><a href="/v1/hl7/ports/">Ports</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div> <!-- /sidebar-module -->
+  <div class="sidebar-module notice">
+    <p>This website is a <a href="https://github.com/roqua/developer" target="_blank">public GitHub repository</a>. Please help us by forking the project and adding to it.</p>
+  </div>
+</div><!-- /sidebar-shell -->
+
+  </div><!-- #wrapper -->
+
+		<div id="footer" >
+    <div class="lower_footer">
+      <ul class="footer-cell">
+      </ul>
+
+      <span class="footer-cell">
+      </span>
+
+      <ul class="footer-cell">
+        <li><a href="http://roqua.nl/contact">Contact</a></li>
+        <li><a href="https://roqua.zendesk.com/forums">Status</a></li>
+        <li><a href="https://roqua.zendesk.com/forums/20271351-Announcements">Release News</a></li>
+      </ul>
+    </div>
+
+		<div class="wrapper">
+			<p>Design &copy; <span class="js-year">2014</span> RoQua. All rights reserved. Except where otherwise noted, content on this site is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/us/">Creative Commons CC-BY license</a>.<br>Many thanks to <a href="https://developer.github.com/">GitHub</a> for providing a CC-BY licenced repository for us to use and adapt.</p>
+		</div>
+
+  </div><!-- /#footer -->
+  <script src="/shared/js/retina.js" type="text/javascript"></script>
+
+</body>
+</html>
