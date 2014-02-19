@@ -43,7 +43,12 @@
 
   <div id="wrapper">
   	<div class="content">
-    	<p>When used in conjunction with an EPD, RoQua has an authentication scheme that relies on the EPD to open a URL that will authenticate a user and open a given dossier number. This enables EPD vendors to build a single sign-on solution that integrates RoQua without the need for the management of users within RoQua. When the SSO-authentication is enabled, the only way for a user to open a dossier, is when the EPD generates a URL with a valid signature.</p>
+    	<ul id="markdown-toc">
+<li><a href="#api-call">API Call</a></li>
+  <li><a href="#example-implementation-both-client-and-server">Example implementation, both client and server</a></li>
+  <li><a href="#todo">TODO</a></li>
+  <li><a href="#references">References</a></li>
+</ul><p>When used in conjunction with an EPD, RoQua has an authentication scheme that relies on the EPD to open a URL that will authenticate a user and open a given dossier number. This enables EPD vendors to build a single sign-on solution that integrates RoQua without the need for the management of users within RoQua. When the SSO-authentication is enabled, the only way for a user to open a dossier, is when the EPD generates a URL with a valid signature.</p>
 
 <p>This signature is generated as a hash of all parameters in the URL, as well as an organization specific secret key. RoQua can then validate the request by calculating the hash itself, and comparing it against the given hash. This protects against tampering with the URL.</p>
 
@@ -121,7 +126,7 @@ value-of-bar|value-of-foo|1359373315
 
 <p>Given a secret <code>very-secret</code>, this message would result in the following HMAC: <code>7ada2feaa64e7af5665b5ad92530f64983fdb3c0</code>.</p>
 
-<h2 id="example">Example</h2>
+<h2 id="example-implementation-both-client-and-server">Example implementation, both client and server</h2>
 
 <p>The library we use to sign and validate requests is open source and can be found <a href="https://github.com/roqua/authmac">on Github</a>. In that library, we have an example web server implemented in <a href="https://github.com/roqua/authmac/blob/master/example/app.rb">this file</a>. This web server is running <a href="http://roqua-urlspec.herokuapp.com">on Heroku</a>, where you can use it to validate your own requests. In that case, use <code>http://roqua-urlspec.herokuapp.com/auth</code> as base URL, instead of the one documented above.</p>
 
@@ -133,11 +138,11 @@ value-of-bar|value-of-foo|1359373315
 </ul><h2 id="references">References</h2>
 
 <ul>
-<li>https://dev.twitter.com/docs/auth/creating-signature</li>
-  <li>https://developers.facebook.com/docs/howtos/login/signed-request/#step2</li>
-  <li>http://rc3.org/2011/12/02/using-hmac-to-authenticate-web-service-requests/</li>
-  <li>http://blog.jcoglan.com/2012/06/09/why-you-should-never-use-hash-functions-for-message-authentication/</li>
-  <li>http://tools.ietf.org/html/rfc4868#page-17</li>
+<li><a href="https://dev.twitter.com/docs/auth/creating-signature">Twitter API Authentication</a></li>
+  <li><a href="https://developers.facebook.com/docs/howtos/login/signed-request/#step2">Facebook API Authentication</a></li>
+  <li><a href="http://rc3.org/2011/12/02/using-hmac-to-authenticate-web-service-requests/">Using HMAC to authenticate Web service requests</a></li>
+  <li><a href="http://blog.jcoglan.com/2012/06/09/why-you-should-never-use-hash-functions-for-message-authentication/">Why you should never ever use hash functions for message authentication</a></li>
+  <li><a href="http://tools.ietf.org/html/rfc4868#page-17">RFC 4868 - HMAC-SHA256, SHA384, and SHA512 in IPsec</a></li>
 </ul>
     </div>
 

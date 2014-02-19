@@ -44,25 +44,71 @@
   <div id="wrapper">
   	<div class="content">
     	<ul id="markdown-toc">
-<li><a href="#parameters">Parameters</a></li>
-  <li><a href="#response">Response</a></li>
+<li><a href="#list-open-responses-for-given-token">List open responses for given token</a></li>
+  <li><a href="#list-all-responses-for-dossier">List all responses for dossier</a></li>
 </ul><p>Responses are questionnaire completions, although they need not be filled out yet. Upon creating an invitation, responses for all selected questionnaires are created. At this point, the responses have status <code>new</code>. When the patient fills out the questionnaire for the answer, its status will change to <code>completed</code>.</p>
 
 <p>Requests for responses are namespaced under a specific <a href="https://github.com/roqua/developer/blob/master/api/v1/dossiers.md">dossier</a>, which is the <code>/api/v1/dossiers/DOSSIER_ID</code> path. In this path <code>DOSSIER_ID</code> is the external identifier used by the EPD to represent this patient.</p>
 
-<h2 id="parameters">Parameters</h2>
+<h2 id="list-open-responses-for-given-token">List open responses for given token</h2>
 
-<ul>
-<li>
-<code>respondent_type</code> - Request only responses where the <code>completer_type</code> would equal the given value. See the <code>completer_type</code> response attribute for a list of valid values.</li>
-  <li>
-<code>status</code>          - Request only responses where the <code>status</code> would equal the given value. See the <code>status</code> attribute for a list of valid values.</li>
-</ul><h2 id="response">Response</h2>
+<p>If you know the token that can be used to log in as a respondent, you can use that to request a list of the names of the questionnaires that will be presented when logging in with that token. This can be done without any authentication.</p>
 
-<ul>
-<li>
-<code>GET /api/v1/dossiers/123/responses.json</code> will return a list of questionnaires that will be presented to the user when he logs in with that token.</li>
-</ul><pre class="headers"><code>Status: 200 OK</code></pre>
+<pre><code>GET /login.json?token=:token
+</code></pre>
+
+<h3 id="response">Response</h3>
+
+<pre class="headers"><code>Status: 200 OK</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"questionnaires"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"key"</span><span class="o">:</span> <span class="s2">"srs"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"SRS"</span><span class="p">,</span>
+      <span class="s2">"short_description"</span><span class="o">:</span> <span class="kc">null</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">"key"</span><span class="o">:</span> <span class="s2">"oq45"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"OQ-45"</span><span class="p">,</span>
+      <span class="s2">"short_description"</span><span class="o">:</span> <span class="s2">"Outcome Questionnaire"</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">"key"</span><span class="o">:</span> <span class="s2">"scl90"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"SCL-90"</span><span class="p">,</span>
+      <span class="s2">"short_description"</span><span class="o">:</span> <span class="s2">"Klachtenlijst"</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span></code></pre>
+
+<h2 id="list-all-responses-for-dossier">List all responses for dossier</h2>
+
+<pre><code>GET /api/v1/dossiers/:dossier_id/responses.json
+</code></pre>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+<thead><tr>
+<th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr></thead>
+<tbody>
+<tr>
+<td><code>respondent_type</code></td>
+      <td><code>string</code></td>
+      <td>Request only responses where the <code>completer_type</code> would equal the given value.</td>
+    </tr>
+<tr>
+<td><code>status</code></td>
+      <td><code>string</code></td>
+      <td>Request only responses where the <code>status</code> would equal the given value.</td>
+    </tr>
+</tbody>
+</table><h3 id="response-1">Response</h3>
+
+<pre class="headers"><code>Status: 200 OK</code></pre>
 
 <pre><code class="language-javascript"><span class="p">{</span>
   <span class="s2">"responses"</span><span class="o">:</span> <span class="p">[</span>
@@ -98,44 +144,50 @@
 
 <h3 id="response-attributes">Response Attributes</h3>
 
-<ul>
-<li>
-<code>name</code> - The name of the response.</li>
-  <li>
-<code>status</code> - One of the following values:
-    <ul>
-<li>
-<code>scheduled</code> - This response is scheduled to be completed at a later time.
-              Cannot be completed right now, and visiting its URL will
-              not result in this response being presented. See <code>open_from</code>
-              and <code>open_till</code> attributes for the time window when this
-              response will be <code>open</code>.</li>
-      <li>
-<code>open</code>      - This response is completable right now.</li>
-      <li>
-<code>completed</code> - This response has been completed.</li>
-    </ul>
-</li>
-  <li>
-<code>open_from</code> - An ISO 8601 formatted string that indicates when the response becomes
-              completable, or <code>null</code> if this response is not only completable within a
-              specific time window.</li>
-  <li>
-<code>open_till</code> - An ISO 8601 formatted string that indicates when the response expires and is
-              no longer completable, or <code>null</code> if this response is not only completable
-              within a specific time window.</li>
-  <li>
-<code>completer_type</code> - Describes for whom this response is intended. Can be <code>patient</code>,
-                   <code>professional</code>, <code>parent</code>, <code>second_parent</code> or <code>teacher</code>. More types
-                   might be added later, therefore it is advised that API consumers
-                   select the desired types, and not reject the undesired types.</li>
-  <li>
-<code>completed_at</code> - An ISO 8601 formatted string that indicates when the response was completed,
-                 or <code>null</code> if this response is not yet completed.</li>
-  <li>
-<code>completing_url</code> - The URL that can be visited to complete this (and possibly
-                   other) response(s). Will be <code>null</code> if response is already completed.</li>
-</ul>
+<table>
+<thead><tr>
+<th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr></thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+      <td><code>string</code></td>
+      <td>The name of the response.</td>
+    </tr>
+<tr>
+<td><code>status</code></td>
+      <td><code>string</code></td>
+      <td>One of the following values:<br>* <code>scheduled</code> - This response is scheduled to be completed at a later time. Cannot be completed right now, and visiting its URL will not result in this response being presented. See <code>open_from</code> and <code>open_till</code> attributes for the time window when this response will be <code>open</code>.<br>* <code>open</code> - This response is completable right now.<br> * <code>completed</code> - This response has been completed.</td>
+    </tr>
+<tr>
+<td><code>open_from</code></td>
+      <td><code>string</code></td>
+      <td>An ISO 8601 formatted string that indicates when the response becomes completable, or <code>null</code> if this response is not only completable within a specific time window.</td>
+    </tr>
+<tr>
+<td><code>open_till</code></td>
+      <td><code>string</code></td>
+      <td>An ISO 8601 formatted string that indicates when the response expires and is no longer completable, or <code>null</code> if this response is not only completable within a specific time window.</td>
+    </tr>
+<tr>
+<td><code>completer_type</code></td>
+      <td><code>string</code></td>
+      <td>Describes for whom this response is intended. Can be <code>patient</code>, <code>professional</code>, <code>parent</code>, <code>second_parent</code> or <code>teacher</code>. More types might be added later, therefore it is advised that API consumers select the desired types, and not reject the undesired types.</td>
+    </tr>
+<tr>
+<td><code>completed_at</code></td>
+      <td><code>string</code></td>
+      <td>An ISO 8601 formatted string that indicates when the response was completed, or <code>null</code> if this response is not yet completed.</td>
+    </tr>
+<tr>
+<td><code>completing_url</code></td>
+      <td><code>string</code></td>
+      <td>The URL that can be visited to complete this (and possibly other) response(s). Will be <code>null</code> if response is already completed.</td>
+    </tr>
+</tbody>
+</table>
     </div>
 
 		<div id="js-sidebar" class="sidebar-shell">

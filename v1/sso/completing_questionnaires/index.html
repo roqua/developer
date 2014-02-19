@@ -54,16 +54,33 @@ window or frame to navigate to:</p>
 
 <p>To this URL, you may add a number of query parameters (i.e. <code>?key=value&amp;foo=bar&amp;baz=quux</code>). These parameters are used for specifying the token to be logged in.</p>
 
-<h3 id="token---required">
-<code>token</code> - Required</h3>
+<h2 id="parameters">Parameters</h2>
 
-<h3 id="returnurl---optional">
-<code>return_url</code> - Optional</h3>
-
-<p>When all pending questionnaires have been answered, thus completing the fill out session, RoQua will redirect to this URL instead of showing a default thank-you screen.</p>
-
-<h3 id="stylesheet---optional">
-<code>stylesheet</code> - Optional</h3>
+<table>
+<thead><tr>
+<th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr></thead>
+<tbody>
+<tr>
+<td><code>token</code></td>
+      <td><code>string</code></td>
+      <td>
+<strong>Required</strong>. The login token.</td>
+    </tr>
+<tr>
+<td><code>return_url</code></td>
+      <td><code>string</code></td>
+      <td>If given, when all pending questionnaires have been answered, thus completing the fill out session, RoQua will redirect to this URL instead of showing a default thank-you screen.</td>
+    </tr>
+<tr>
+<td><code>stylesheet</code></td>
+      <td><code>string</code></td>
+      <td>If given, this CSS URL will be loaded after our built-in stylesheets to allow some visual customization of the look and feel.</td>
+    </tr>
+</tbody>
+</table>
     </div>
 
 		<div id="js-sidebar" class="sidebar-shell">
