@@ -48,8 +48,6 @@
   <li><a href="#list-all-responses-for-dossier">List all responses for dossier</a></li>
 </ul><p>Responses are questionnaire completions, although they need not be filled out yet. Upon creating an invitation, responses for all selected questionnaires are created. At this point, the responses have status <code>new</code>. When the patient fills out the questionnaire for the answer, its status will change to <code>completed</code>.</p>
 
-<p>Requests for responses are namespaced under a specific <a href="https://github.com/roqua/developer/blob/master/api/v1/dossiers.md">dossier</a>, which is the <code>/api/v1/dossiers/DOSSIER_ID</code> path. In this path <code>DOSSIER_ID</code> is the external identifier used by the EPD to represent this patient.</p>
-
 <h2 id="list-open-responses-for-given-token">List open responses for given token</h2>
 
 <p>If you know the token that can be used to log in as a respondent, you can use that to request a list of the names of the questionnaires that will be presented when logging in with that token. This can be done without any authentication.</p>
@@ -82,6 +80,8 @@
 <span class="p">}</span></code></pre>
 
 <h2 id="list-all-responses-for-dossier">List all responses for dossier</h2>
+
+<p>Requests for more detailed information about responses are namespaced under a specific <a href="https://github.com/roqua/developer/blob/master/api/v1/dossiers.md">dossier</a>, which is the <code>/api/v1/dossiers/DOSSIER_ID</code> path. In this path <code>DOSSIER_ID</code> is the external identifier used by the EPD to represent this patient.</p>
 
 <pre><code>GET /api/v1/dossiers/:dossier_id/responses.json
 </code></pre>
@@ -208,11 +208,18 @@
         </ul>
       </li>
       <li class="js-topic">
-        <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/v1/rom/">RoQua ROM</a></h3>
+        <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/v1/global/">Global data</a></h3>
         <ul class="js-guides">
-          <li><a href="/developer/v1/rom/dossiers/">Dossiers</a></li>
-          <li><a href="/developer/v1/rom/responses/">Responses</a></li>
-          <li><a href="/developer/v1/rom/protocol_subscriptions/">Protocol Subscriptions</a></li>
+          <li><a href="/developer/v1/global/questionnaires/">Questionnaires</a></li>
+          <li><a href="/developer/v1/global/data_exports/">Data Exports</a></li>
+        </ul>
+      </li>
+      <li class="js-topic">
+        <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/v1/dossier/">Dossier-specific data</a></h3>
+        <ul class="js-guides">
+          <li><a href="/developer/v1/dossier/dossiers/">Dossiers</a></li>
+          <li><a href="/developer/v1/dossier/responses/">Responses</a></li>
+          <li><a href="/developer/v1/dossier/protocol_subscriptions/">Protocol Subscriptions</a></li>
         </ul>
       </li>
       <li class="js-topic">

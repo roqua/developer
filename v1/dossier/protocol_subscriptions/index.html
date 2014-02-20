@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Language" content="en-us" />
   <meta http-equiv="imagetoolbar" content="false" />
   <meta name="MSSmartTagsPreventParsing" content="true" />
-  <title>HL7 2.4 QRY^A19 request | RoQua Developer Docs</title>
+  <title>Protocol Subscriptions | RoQua Developer Docs</title>
   <link href="/developer/assets/css/reset.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/960.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/uv_active4d.css" rel="stylesheet" type="text/css" />
@@ -31,7 +31,7 @@
 
 	<div class="sub-nav">
 		<h2>
-      HL7 2.4 QRY^A19 request
+      Protocol Subscriptions
       
     </h2>
 
@@ -43,7 +43,66 @@
 
   <div id="wrapper">
   	<div class="content">
-    	<p>TODO</p>
+    	<ul id="markdown-toc">
+<li><a href="#start-a-protocol-subscription">Start a protocol subscription.</a></li>
+</ul><p>Manage protocol subscriptions for individual patients.</p>
+
+<h2 id="start-a-protocol-subscription">Start a protocol subscription.</h2>
+
+<pre><code>POST /api/v1/protocol_subscriptions/
+</code></pre>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+<thead><tr>
+<th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr></thead>
+<tbody>
+<tr>
+<td><code>dossier_id</code></td>
+      <td><code>string</code></td>
+      <td>
+<strong>Required</strong>. Unique identifier for the patient to be subscribed.</td>
+    </tr>
+<tr>
+<td><code>protocol_key</code></td>
+      <td><code>string</code></td>
+      <td>
+<strong>Required</strong>. Key uniquely identifying the protocol of interest as specified in RoQua.</td>
+    </tr>
+<tr>
+<td><code>start_at</code></td>
+      <td><code>integer</code></td>
+      <td>The Unix time when the first measurement should be prepared. Defaults to the current time.</td>
+    </tr>
+</tbody>
+</table><h3 id="success">Success</h3>
+
+<pre class="headers"><code>Status: 200 OK</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"daily_start_time"</span><span class="o">:</span> <span class="mi">32400</span><span class="p">,</span>
+  <span class="s2">"patient_id"</span><span class="o">:</span> <span class="mi">16893</span><span class="p">,</span>
+  <span class="s2">"protocol_id"</span><span class="o">:</span> <span class="mi">35</span><span class="p">,</span>
+  <span class="s2">"start_at"</span><span class="o">:</span> <span class="s2">"2014-02-14T15:43:24+01:00"</span>
+<span class="p">}</span></code></pre>
+
+<h3 id="when-basic-http-authentication-fails">When basic HTTP authentication fails</h3>
+
+<pre class="headers"><code>Status: 401 Unauthorized</code></pre>
+
+<pre><code>(no response body)</code></pre>
+
+<h3 id="when-no-protocol-can-be-found-for-the-protocolkey-provided">When no protocol can be found for the protocol_key provided</h3>
+
+<pre class="headers no-response"><code>Status: 404 Not Found</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"error"</span><span class="o">:</span> <span class="s2">"Protocol with key 'protocol_key' not found"</span>
+<span class="p">}</span></code></pre>
     </div>
 
 		<div id="js-sidebar" class="sidebar-shell">

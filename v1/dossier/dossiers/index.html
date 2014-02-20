@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Language" content="en-us" />
   <meta http-equiv="imagetoolbar" content="false" />
   <meta name="MSSmartTagsPreventParsing" content="true" />
-  <title>RoQua ROM API | RoQua Developer Docs</title>
+  <title>Dossiers | RoQua Developer Docs</title>
   <link href="/developer/assets/css/reset.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/960.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/uv_active4d.css" rel="stylesheet" type="text/css" />
@@ -31,8 +31,10 @@
 
 	<div class="sub-nav">
 		<h2>
-      RoQua ROM API
-      
+      Dossiers
+      <span class="status status-draft">
+          draft
+          </span>
     </h2>
 
 		<ul>
@@ -43,7 +45,21 @@
 
   <div id="wrapper">
   	<div class="content">
-    	
+    	<h2 id="get-a-single-dossier">Get a single dossier</h2>
+
+<pre><code>GET /api/v1/dossiers/:id
+</code></pre>
+
+<h3 id="response">Response</h3>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"epd_id"</span><span class="o">:</span> <span class="s2">"123"</span><span class="p">,</span>
+  <span class="s2">"gender"</span><span class="o">:</span> <span class="s2">"2"</span><span class="p">,</span>
+  <span class="s2">"birthdate"</span><span class="o">:</span> <span class="s2">"1920-02-04"</span><span class="p">,</span>
+  <span class="s2">"sync_status_message"</span><span class="o">:</span> <span class="s2">"Ophalen meest recente gegevens mislukt! Deze gegevens kunnen daarom verouderd zijn"</span><span class="p">,</span>
+  <span class="s2">"editable"</span><span class="o">:</span> <span class="kc">false</span>
+<span class="p">}</span></code></pre>
     </div>
 
 		<div id="js-sidebar" class="sidebar-shell">
@@ -64,11 +80,18 @@
         </ul>
       </li>
       <li class="js-topic">
-        <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/v1/rom/">RoQua ROM</a></h3>
+        <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/v1/global/">Global data</a></h3>
         <ul class="js-guides">
-          <li><a href="/developer/v1/rom/dossiers/">Dossiers</a></li>
-          <li><a href="/developer/v1/rom/responses/">Responses</a></li>
-          <li><a href="/developer/v1/rom/protocol_subscriptions/">Protocol Subscriptions</a></li>
+          <li><a href="/developer/v1/global/questionnaires/">Questionnaires</a></li>
+          <li><a href="/developer/v1/global/data_exports/">Data Exports</a></li>
+        </ul>
+      </li>
+      <li class="js-topic">
+        <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/v1/dossier/">Dossier-specific data</a></h3>
+        <ul class="js-guides">
+          <li><a href="/developer/v1/dossier/dossiers/">Dossiers</a></li>
+          <li><a href="/developer/v1/dossier/responses/">Responses</a></li>
+          <li><a href="/developer/v1/dossier/protocol_subscriptions/">Protocol Subscriptions</a></li>
         </ul>
       </li>
       <li class="js-topic">
