@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Language" content="en-us" />
   <meta http-equiv="imagetoolbar" content="false" />
   <meta name="MSSmartTagsPreventParsing" content="true" />
-  <title>Single Sign-On for Respondents | RoQua Developer Docs</title>
+  <title>Service Health | RoQua Developer Docs</title>
   <link href="/developer/assets/css/reset.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/960.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/uv_active4d.css" rel="stylesheet" type="text/css" />
@@ -33,8 +33,10 @@
 	<div class="sub-nav">
 		<h2>
       <strong>ROM:</strong>
-      Single Sign-On for Respondents
-      
+      Service Health
+      <span class="status status-draft">
+          draft
+          </span>
     </h2>
 
 		<ul>
@@ -45,45 +47,26 @@
 
   <div id="wrapper">
   	<div class="content">
-    	<p>The login for a patient (or other respondents for a dossier) is normally done by entering a token which the person has received by e-mail or snailmail. It’s also possible to open the login URL with this token prefilled as a query parameter, in which case the login will happen automatically and the person will be presented the first pending questionnaire immediately.</p>
+    	<ul id="markdown-toc">
+<li><a href="#get-current-service-health">Get current service health</a></li>
+</ul><h2 id="get-current-service-health">Get current service health</h2>
 
-<h2 id="sso-url">SSO URL</h2>
-
-<p>To open RoQua client-interface and start filling in pending questionnaires, tell a browser
-window or frame to navigate to:</p>
-
-<pre><code>https://:ggzname.roqua.nl/login
+<pre><code>GET /api/v1/service_health
 </code></pre>
 
-<h2 id="parameters">Parameters</h2>
+<h3 id="response">Response</h3>
 
-<p>To this URL, you may add a number of query parameters. These parameters are used for specifying the token to be logged in, and specifying additional behaviour.</p>
+<pre class="headers"><code>Status: 200 OK</code></pre>
 
-<table>
-<thead><tr>
-<th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr></thead>
-<tbody>
-<tr>
-<td><code>token</code></td>
-      <td><code>string</code></td>
-      <td>
-<strong>Required</strong>. The login token.</td>
-    </tr>
-<tr>
-<td><code>return_url</code></td>
-      <td><code>string</code></td>
-      <td>If given, when all pending questionnaires have been answered, thus completing the fill out session, RoQua will redirect to this URL instead of showing a default thank-you screen.</td>
-    </tr>
-<tr>
-<td><code>stylesheet</code></td>
-      <td><code>string</code></td>
-      <td>If given, this CSS URL will be loaded after our built-in stylesheets to allow some visual customization of the look and feel.</td>
-    </tr>
-</tbody>
-</table>
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"status"</span><span class="o">:</span> <span class="s2">"ok"</span><span class="p">,</span>
+  <span class="s2">"a19"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"last_success"</span><span class="o">:</span> <span class="s2">"2012-11-23T12:40:20+00:00+0200"</span>
+  <span class="p">},</span>
+  <span class="s2">"oru"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"last_success"</span><span class="o">:</span> <span class="s2">"2012-11-23T12:40:20+00:00+0200"</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
     </div>
 
 		<div id="js-sidebar" class="sidebar-shell">
