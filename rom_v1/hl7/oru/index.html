@@ -50,13 +50,13 @@
   <li><a href="#completed-response">Completed response</a></li>
   <li><a href="#responses-that-can-no-longer-be-completed">Responses that can no longer be completed</a></li>
   <li><a href="#responses-that-are-deleted">Responses that are deleted</a></li>
-</ul><p>This document describes the types of ORU messages RoQua sends out. The list of<br>
-examples when the ORUs are triggered are not exhaustive, and the given ORU-messages<br>
+</ul><p>This document describes the types of ORU messages RoQua sends out. The list of
+examples when the ORUs are triggered are not exhaustive, and the given ORU-messages
 serve as examples. For details, please refer to the HL7 v2.4 specification.</p>
 
 <h2 id="empty-response">Empty response</h2>
 
-<p>Upon creation of a response, an ORU message will be sent with status <code>S</code>. This status<br>
+<p>Upon creation of a response, an ORU message will be sent with status <code>S</code>. This status
 will also be sent when an incompletable response becomes completable again.</p>
 
 <pre><code>MSH|^~\&amp;|Roqua|RGOc|||20121120113522||ORU^R01|8da2b665b7|P|2.4|||||||
@@ -93,8 +93,8 @@ OBX|23|ST|mansa_20^MANSA v_20^L||||||||S|||201211201139
 
 <h2 id="responses-that-can-no-longer-be-completed">Responses that can no longer be completed</h2>
 
-<p>When an uncompleted invitation gets closed or expires, the responses that were created<br>
-for it can no longer be completed. In this case, RoQua sends out ORUs with status <code>X</code><br>
+<p>When an uncompleted invitation gets closed or expires, the responses that were created
+for it can no longer be completed. In this case, RoQua sends out ORUs with status <code>X</code>
 for those responses.</p>
 
 <pre><code>MSH|^~\&amp;|Roqua|RGOc|||20121120113543||ORU^R01|bef30795c0|P|2.4|||||||
@@ -127,8 +127,8 @@ OBX|23|ST|mansa_20^MANSA v_20^L||||||||X|||201211201139
 
 <h2 id="responses-that-are-deleted">Responses that are deleted</h2>
 
-<p>When a measurement is deleted, the responses that were recorded under it are<br>
-also deleted. When this happens, ORU messages with status <code>D</code> are triggered<br>
+<p>When a measurement is deleted, the responses that were recorded under it are
+also deleted. When this happens, ORU messages with status <code>D</code> are triggered
 for these responses.</p>
 
 <pre><code>MSH|^~\&amp;|Roqua|RGOc|||20121120122117||ORU^R01|5e771beaed|P|2.4|||||||
