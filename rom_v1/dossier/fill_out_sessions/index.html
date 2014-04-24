@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Language" content="en-us" />
   <meta http-equiv="imagetoolbar" content="false" />
   <meta name="MSSmartTagsPreventParsing" content="true" />
-  <title>Service Health | RoQua Developer Docs</title>
+  <title>FillOut Sessions | RoQua Developer Docs</title>
   <link href="/developer/assets/css/reset.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/960.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/uv_active4d.css" rel="stylesheet" type="text/css" />
@@ -35,10 +35,8 @@
 	<div class="sub-nav">
 		<h2>
       <strong>ROM:</strong>
-      Service Health
-      <span class="status status-draft">
-          draft
-          </span>
+      FillOut Sessions
+      
     </h2>
 
 		<ul>
@@ -50,26 +48,84 @@
   <div id="wrapper">
   	<div class="content">
     	<ul id="markdown-toc">
-<li><a href="#get-current-service-health">Get current service health</a></li>
-</ul><h2 id="get-current-service-health">Get current service health</h2>
+<li><a href="#start-a-fill-out-session">Start a fill out session.</a></li>
+</ul><p>Start fill out session for patient.</p>
 
-<pre><code>GET /api/v1/service_health
+<h2 id="start-a-fill-out-session">Start a fill out session.</h2>
+
+<pre><code>POST /api/v1/dossiers/:dossier_id/fill_out_sessions/
 </code></pre>
 
-<h3 id="response">Response</h3>
+<h3 id="parameters">Parameters</h3>
+
+<table>
+<thead><tr>
+<th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr></thead>
+<tbody>
+<tr>
+<td><code>dossier_id</code></td>
+      <td><code>string</code></td>
+      <td>
+<strong>Required</strong>. Unique identifier for the patient to be subscribed.</td>
+    </tr>
+<tr>
+<td><code>questionnaire_key</code></td>
+      <td><code>string</code></td>
+      <td>
+<strong>Required</strong>. Key uniquely identifying the questionnaire to be filled out.</td>
+    </tr>
+<tr>
+<td><code>return_to</code></td>
+      <td><code>string</code></td>
+      <td>
+<strong>Required</strong>. URL to redirect to after the questionnaire has been filled out.</td>
+    </tr>
+</tbody>
+</table><h3 id="success">Success</h3>
 
 <pre class="headers"><code>Status: 200 OK</code></pre>
 
 <pre><code class="language-javascript"><span class="p">{</span>
-  <span class="s2">"status"</span><span class="o">:</span> <span class="s2">"ok"</span><span class="p">,</span>
-  <span class="s2">"a19"</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">"queue_size"</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span>
-    <span class="s2">"last_success"</span><span class="o">:</span> <span class="s2">"2014-04-24T11:44:10+02:00"</span>
-  <span class="p">},</span>
-  <span class="s2">"oru"</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">"queue_size"</span><span class="o">:</span> <span class="mi">11</span><span class="p">,</span>
-    <span class="s2">"last_success"</span><span class="o">:</span> <span class="s2">"2014-04-24T10:04:08+02:00"</span>
-  <span class="p">}</span>
+  <span class="s2">"questionnaire_url"</span><span class="o">:</span> <span class="s2">"url://to.the/questionnaire/to/be/filled/out"</span>
+<span class="p">}</span></code></pre>
+
+<h3 id="when-basic-http-authentication-fails">When basic HTTP authentication fails</h3>
+
+<pre class="headers"><code>Status: 401 Unauthorized</code></pre>
+
+<pre><code>(no response body)</code></pre>
+
+<h3 id="when-no-dossierid-is-provided">When no <code>dossier_id</code> is provided</h3>
+
+<pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">"Dossier id moet opgegeven zijn"</span>
+  <span class="p">]</span>
+<span class="p">}</span></code></pre>
+
+<h3 id="when-no-questionnaire-exists-with-the-questionnairekey-provided">When no questionnaire exists with the <code>questionnaire_key</code> provided</h3>
+
+<pre class="headers no-response"><code>Status: 404 Not Found</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">"Vragenlijst met sleutel 'questionnaire_key' niet gevonden"</span>
+  <span class="p">]</span>
+<span class="p">}</span></code></pre>
+
+<h3 id="when-no-returnto-url-is-provided">When no <code>return_to url</code> is provided</h3>
+
+<pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">"Return url is vereist"</span>
+  <span class="p">]</span>
 <span class="p">}</span></code></pre>
     </div>
 

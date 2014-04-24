@@ -48,15 +48,65 @@
   <div id="wrapper">
   	<div class="content">
     	<ul id="markdown-toc">
-<li><a href="#start-a-protocol-subscription">Start a protocol subscription.</a></li>
+<li><a href="#retrieve-all-active-protocol-subscriptions-for-a-patient">Retrieve all active protocol subscriptions for a patient</a></li>
+  <li><a href="#start-a-protocol-subscription">Start a protocol subscription</a></li>
+  <li><a href="#stop-a-protocol-subscription">Stop a protocol subscription.</a></li>
 </ul><p>Manage protocol subscriptions for individual patients.</p>
 
-<h2 id="start-a-protocol-subscription">Start a protocol subscription.</h2>
+<h2 id="retrieve-all-active-protocol-subscriptions-for-a-patient">Retrieve all active protocol subscriptions for a patient</h2>
 
-<pre><code>POST /api/v1/protocol_subscriptions/
+<pre><code>GET /api/v1/dossiers/:dossier_id/protocol_subscriptions
 </code></pre>
 
 <h3 id="parameters">Parameters</h3>
+
+<table>
+<thead><tr>
+<th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr></thead>
+<tbody><tr>
+<td><code>dossier_id</code></td>
+      <td><code>string</code></td>
+      <td>
+<strong>Required</strong>. Unique identifier for the patient of interest.</td>
+    </tr></tbody>
+</table><h3 id="success">Success</h3>
+
+<pre class="headers"><code>Status: 200 OK</code></pre>
+
+<pre><code class="language-javascript"><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">"daily_start_time"</span><span class="o">:</span> <span class="mi">32400</span><span class="p">,</span>
+    <span class="s2">"patient_id"</span><span class="o">:</span> <span class="mi">16893</span><span class="p">,</span>
+    <span class="s2">"protocol_id"</span><span class="o">:</span> <span class="mi">35</span><span class="p">,</span>
+    <span class="s2">"start_at"</span><span class="o">:</span> <span class="s2">"2014-02-14T15:43:24+01:00"</span>
+  <span class="p">}</span>
+<span class="p">]</span></code></pre>
+
+<h3 id="when-basic-http-authentication-fails">When basic HTTP authentication fails</h3>
+
+<pre class="headers"><code>Status: 401 Unauthorized</code></pre>
+
+<pre><code>(no response body)</code></pre>
+
+<h3 id="when-no-dossierid-is-provided">When no <code>dossier_id</code> is provided</h3>
+
+<pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">"Dossier id moet opgegeven zijn"</span>
+  <span class="p">]</span>
+<span class="p">}</span></code></pre>
+
+<h2 id="start-a-protocol-subscription">Start a protocol subscription</h2>
+
+<pre><code>POST /api/v1/dossiers/:dossier_id/protocol_subscriptions/
+</code></pre>
+
+<h3 id="parameters-1">Parameters</h3>
 
 <table>
 <thead><tr>
@@ -83,7 +133,7 @@
       <td>The Unix time when the first measurement should be prepared. Defaults to the current time.</td>
     </tr>
 </tbody>
-</table><h3 id="success">Success</h3>
+</table><h3 id="success-1">Success</h3>
 
 <pre class="headers"><code>Status: 200 OK</code></pre>
 
@@ -94,18 +144,95 @@
   <span class="s2">"start_at"</span><span class="o">:</span> <span class="s2">"2014-02-14T15:43:24+01:00"</span>
 <span class="p">}</span></code></pre>
 
-<h3 id="when-basic-http-authentication-fails">When basic HTTP authentication fails</h3>
+<h3 id="when-basic-http-authentication-fails-1">When basic HTTP authentication fails</h3>
 
 <pre class="headers"><code>Status: 401 Unauthorized</code></pre>
 
 <pre><code>(no response body)</code></pre>
 
-<h3 id="when-no-protocol-can-be-found-for-the-protocolkey-provided">When no protocol can be found for the protocol_key provided</h3>
+<h3 id="when-no-dossierid-is-provided-1">When no <code>dossier_id</code> is provided</h3>
+
+<pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">"Dossier id moet opgegeven zijn"</span>
+  <span class="p">]</span>
+<span class="p">}</span></code></pre>
+
+<h3 id="when-no-protocol-exists-with-the-protocolkey-provided">When no protocol exists with the <code>protocol_key</code> provided</h3>
 
 <pre class="headers no-response"><code>Status: 404 Not Found</code></pre>
 
 <pre><code class="language-javascript"><span class="p">{</span>
-  <span class="s2">"error"</span><span class="o">:</span> <span class="s2">"Protocol with key 'protocol_key' not found"</span>
+  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">"Protocol met sleutel 'protocol_key' niet gevonden"</span>
+  <span class="p">]</span>
+<span class="p">}</span></code></pre>
+
+<h2 id="stop-a-protocol-subscription">Stop a protocol subscription.</h2>
+
+<pre><code>DELETE /api/v1/dossiers/:dossier_id/protocol_subscriptions/:id
+</code></pre>
+
+<h3 id="parameters-2">Parameters</h3>
+
+<table>
+<thead><tr>
+<th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr></thead>
+<tbody>
+<tr>
+<td><code>dossier_id</code></td>
+      <td><code>string</code></td>
+      <td>
+<strong>Required</strong>. Unique identifier for the patient to be subscribed.</td>
+    </tr>
+<tr>
+<td><code>id</code></td>
+      <td><code>string</code></td>
+      <td>
+<strong>Required</strong>. Key uniquely identifying the protocol subscription to be stopped.</td>
+    </tr>
+</tbody>
+</table><h3 id="success-2">Success</h3>
+
+<pre class="headers"><code>Status: 200 OK</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"daily_start_time"</span><span class="o">:</span> <span class="mi">32400</span><span class="p">,</span>
+  <span class="s2">"patient_id"</span><span class="o">:</span> <span class="mi">16893</span><span class="p">,</span>
+  <span class="s2">"protocol_id"</span><span class="o">:</span> <span class="mi">35</span><span class="p">,</span>
+  <span class="s2">"start_at"</span><span class="o">:</span> <span class="s2">"2014-02-14T15:43:24+01:00"</span>
+<span class="p">}</span></code></pre>
+
+<h3 id="when-basic-http-authentication-fails-2">When basic HTTP authentication fails</h3>
+
+<pre class="headers"><code>Status: 401 Unauthorized</code></pre>
+
+<pre><code>(no response body)</code></pre>
+
+<h3 id="when-no-dossierid-is-provided-2">When no <code>dossier_id</code> is provided</h3>
+
+<pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">"Dossier id moet opgegeven zijn"</span>
+  <span class="p">]</span>
+<span class="p">}</span></code></pre>
+
+<h3 id="when-no-protocol-subscription-exists-with-the-given-id">When no protocol subscription exists with the given <code>id</code>
+</h3>
+
+<pre class="headers no-response"><code>Status: 404 Not Found</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">"Protocolabonnement met id 'id' niet gevonden"</span>
+  <span class="p">]</span>
 <span class="p">}</span></code></pre>
     </div>
 
