@@ -48,15 +48,11 @@
   <div id="wrapper">
   	<div class="content">
     	
-<p>All API endpoints for dossier specific information and actions require a <code>dossier_id</code> parameter. When this parameter is blank, an HTTP unprocessable entity response code is returned:</p>
+<p>All API endpoints for dossier specific information and actions require a <code>dossier_id</code> parameter. When this parameter is blank, an HTTP <code>not_found</code> response code is returned:</p>
 
-<pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
+<pre class="headers no-response"><code>Status: 404 Not Found</code></pre>
 
-<pre><code class="language-javascript"><span class="p">{</span>
-  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">[</span>
-    <span class="s2">"Dossier id moet opgegeven zijn"</span>
-  <span class="p">]</span>
-<span class="p">}</span></code></pre>
+<pre><code>(no response body)</code></pre>
     </div>
 
 		<div id="js-sidebar" class="sidebar-shell">
