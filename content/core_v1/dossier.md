@@ -1,3 +1,0 @@
----
-title: RoQua ROM API
----
