@@ -107,9 +107,11 @@
 <pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
 
 <pre><code class="language-javascript"><span class="p">{</span>
-  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">[</span>
-    <span class="s2">"Vragenlijst met sleutel 'questionnaire_key' niet gevonden"</span>
-  <span class="p">]</span>
+  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"questionnaire_key"</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s2">"questionnaire_not_found_by_key"</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
 <span class="p">}</span></code></pre>
 
 <h3 id="when-no-returnto-url-is-provided">When no <code>return_to</code> url is provided</h3>
@@ -117,9 +119,11 @@
 <pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
 
 <pre><code class="language-javascript"><span class="p">{</span>
-  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">[</span>
-    <span class="s2">"Return url is vereist"</span>
-  <span class="p">]</span>
+  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"return_url"</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s2">"missing"</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
 <span class="p">}</span></code></pre>
     </div>
 

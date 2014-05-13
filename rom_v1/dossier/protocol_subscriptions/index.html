@@ -157,9 +157,11 @@
 <pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
 
 <pre><code class="language-javascript"><span class="p">{</span>
-  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">[</span>
-    <span class="s2">"Protocol met sleutel 'protocol_key' niet gevonden"</span>
-  <span class="p">]</span>
+  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"protocol_key"</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s2">"protocol_not_found_by_key"</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
 <span class="p">}</span></code></pre>
 
 <h2 id="stop-a-protocol-subscription">Stop a protocol subscription.</h2>
