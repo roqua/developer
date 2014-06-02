@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Language" content="en-us" />
   <meta http-equiv="imagetoolbar" content="false" />
   <meta name="MSSmartTagsPreventParsing" content="true" />
-  <title>DSL version 1 | RoQua Developer Docs</title>
+  <title>Rails Engine - Returning to your application | RoQua Developer Docs</title>
   <link href="/developer/assets/css/reset.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/960.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/uv_active4d.css" rel="stylesheet" type="text/css" />
@@ -35,8 +35,10 @@
   <div class="sub-nav">
     <h2>
       <strong>Quby:</strong>
-      DSL version 1
-      
+      Rails Engine - Returning to your application
+      <span class="status status-draft">
+          draft
+          </span>
     </h2>
 
     <ul>
@@ -46,7 +48,42 @@
 
   <div id="wrapper">
     <div class="content">
-      <p>V1 documentation</p>
+      <p>When you redirected to the Quby URL, you specified a <code>return_url</code>. After some events (e.g. completion of an answer), Quby will redirect to this URL.</p>
+
+<h2 id="query-parameters">Query parameters</h2>
+
+<table>
+<thead><tr>
+<th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr></thead>
+<tbody>
+<tr>
+<td><code>key</code></td>
+      <td><code>string</code></td>
+      <td>The value that was supplied for the <code>return_token</code> parameter.</td>
+    </tr>
+<tr>
+<td><code>return_from_answer</code></td>
+      <td><code>string</code></td>
+      <td>The ID of the answer which was just accessed. This might not be the ID you redirected to (because the user might have used the back button in their browser).</td>
+    </tr>
+<tr>
+<td><code>status</code></td>
+      <td><code>string</code></td>
+      <td>
+<em>Optional.</em> Possible values:<br> * <code>back</code> - user requested to browse backwards to the previous questionnaire.<br> * <code>close</code> - user requested to abort their fill out session and stop completing more questionnaires.<br> * <code>authorization_error</code> - something went wrong while authorizing the user against the requested URL (e.g. the answer id in the session was incorrect, or the HMAC did not validate).<br>
+</td>
+    </tr>
+<tr>
+<td><code>expired_session</code></td>
+      <td><code>string</code></td>
+      <td>
+<em>Optional.</em> Present and set to <code>true</code> if the timestamp in the requested URL has expired.</td>
+    </tr>
+</tbody>
+</table>
     </div>
     <div id="js-sidebar" class="sidebar-shell">
       <div class="js-toggle-list sidebar-module expandable">
