@@ -332,13 +332,41 @@
     </tr>
 </tbody>
 </table><h4 id="outcome">Outcome</h4>
-<p>Name             | Type     | Description
-—————–|———-|————–
-<code>scores</code>         | <code>hash</code>   | Hash containing a hash for each calculated score, index on the score key. Each score contains a <code>value</code> entry when the score was calculated successfully and may contain extra key value pairs for interpretation and t-scores. See the outcome description of each questionnaire for more information on the calculated scores.
-<code>action</code>         | <code>string</code> | [‘attention’, ‘alarm’] Whether the calculated outcome requires extra attention or whether it is alarming.
-<code>alarm</code>          | <code>array</code>   | Array containing all question keys giving rise to the <code>alarm</code> flag.
-<code>attention</code>      | <code>array</code>   | Array containing all question keys giving rise to the <code>attention</code> flag.
-<code>complete</code>       |</p>
+
+<table>
+<thead><tr>
+<th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr></thead>
+<tbody>
+<tr>
+<td><code>scores</code></td>
+      <td><code>hash</code></td>
+      <td>Hash containing a hash for each calculated score, index on the score key. Each score contains a <code>value</code> entry when the score was calculated successfully and may contain extra key value pairs for interpretation and t-scores. See the outcome description of each questionnaire for more information on the calculated scores.</td>
+    </tr>
+<tr>
+<td><code>action</code></td>
+      <td><code>string</code></td>
+      <td>[‘attention’, ‘alarm’] Whether the calculated outcome requires extra attention or whether it is alarming.</td>
+    </tr>
+<tr>
+<td><code>alarm</code></td>
+      <td><code>array</code></td>
+      <td>Array containing all question keys giving rise to the <code>alarm</code> flag.</td>
+    </tr>
+<tr>
+<td><code>attention</code></td>
+      <td><code>array</code></td>
+      <td>Array containing all question keys giving rise to the <code>attention</code> flag.</td>
+    </tr>
+<tr>
+<td><code>complete</code></td>
+      <td><code>string</code></td>
+      <td>String indicating the percentage a questionnaire has been completed. Either ‘100%’ or  <code>null</code> when a questionnaire is fully completed.</td>
+    </tr>
+</tbody>
+</table>
     </div>
 
 		<div id="js-sidebar" class="sidebar-shell">
