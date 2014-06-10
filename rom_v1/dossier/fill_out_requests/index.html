@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Language" content="en-us" />
   <meta http-equiv="imagetoolbar" content="false" />
   <meta name="MSSmartTagsPreventParsing" content="true" />
-  <title>Service Health | RoQua Developer Docs</title>
+  <title>Fill out requests | RoQua Developer Docs</title>
   <link href="/developer/assets/css/reset.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/960.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/uv_active4d.css" rel="stylesheet" type="text/css" />
@@ -35,7 +35,7 @@
 	<div class="sub-nav">
 		<h2>
       <strong>ROM:</strong>
-      Service Health
+      Fill out requests
       <span class="status status-draft">
           draft
           </span>
@@ -50,27 +50,146 @@
   <div id="wrapper">
   	<div class="content">
     	<ul id="markdown-toc">
-<li><a href="#get-current-service-health">Get current service health</a></li>
-</ul><h2 id="get-current-service-health">Get current service health</h2>
+<li><a href="#create-a-filloutrequest">Create a FillOutRequest</a></li>
+</ul><p>A fill_out_request specifies a list of questionnaires that need to be filled out within a certain timespan.
+At opened/reminder/expired a callback is made to the callback url.</p>
 
-<pre><code>GET /api/v1/service_health
+<h2 id="create-a-filloutrequest">Create a FillOutRequest</h2>
+
+<pre><code>POST /api/v1/dossiers/:dossier_id/fill_out_request/
 </code></pre>
 
-<h3 id="response">Response</h3>
+<h3 id="parameters">Parameters</h3>
+
+<table>
+<thead><tr>
+<th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr></thead>
+<tbody>
+<tr>
+<td><code>dossier_id</code></td>
+      <td><code>string</code></td>
+      <td>
+<strong>Required</strong>. Unique identifier for the patient to be subscribed.</td>
+    </tr>
+<tr>
+<td><code>fill_out_request</code></td>
+      <td><code>hash</code></td>
+      <td>
+<strong>Required</strong>. attributes (see below).</td>
+    </tr>
+</tbody>
+</table><h4 id="filloutrequest-attributes">fill_out_request attributes:</h4>
+
+<table>
+<thead><tr>
+<th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr></thead>
+<tbody>
+<tr>
+<td><code>questionnaire_keys</code></td>
+      <td><code>array of string</code></td>
+      <td>
+<strong>Required</strong>. List of questionnaires that need to be filled out.</td>
+    </tr>
+<tr>
+<td><code>respondent_type</code></td>
+      <td><code>string</code></td>
+      <td>Defaults to <code>patient_version</code>.</td>
+    </tr>
+<tr>
+<td><code>callback_url</code></td>
+      <td><code>string</code></td>
+      <td>url to call on events (see below).</td>
+    </tr>
+<tr>
+<td><code>reminders</code></td>
+      <td><code>array of integer</code></td>
+      <td>List of offsets in seconds after open_from to make a reminder callback.</td>
+    </tr>
+<tr>
+<td><code>open_from</code></td>
+      <td><code>integer</code></td>
+      <td>Unix timestamp for when the questionnaires can be filled out. Defaults to Time.now</td>
+    </tr>
+<tr>
+<td><code>open_till</code></td>
+      <td><code>integer</code></td>
+      <td>Unix timestamp for when the questionnaires expire. Default to never.</td>
+    </tr>
+</tbody>
+</table><h3 id="success">Success</h3>
 
 <pre class="headers"><code>Status: 200 OK</code></pre>
 
 <pre><code class="language-javascript"><span class="p">{</span>
-  <span class="s2">"status"</span><span class="o">:</span> <span class="s2">"ok"</span><span class="p">,</span>
-  <span class="s2">"a19"</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">"queue_size"</span><span class="o">:</span> <span class="mi">24</span><span class="p">,</span>
-    <span class="s2">"last_success"</span><span class="o">:</span> <span class="s2">"2014-06-10T10:37:30+00:00"</span>
-  <span class="p">},</span>
-  <span class="s2">"oru"</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">"queue_size"</span><span class="o">:</span> <span class="mi">11</span><span class="p">,</span>
-    <span class="s2">"last_success"</span><span class="o">:</span> <span class="s2">"2014-06-10T08:57:28+00:00"</span>
+  <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1234</span>
+<span class="p">}</span></code></pre>
+
+<h3 id="callbacks">Callbacks</h3>
+
+<p>For each event the callback url is called with the following params:</p>
+
+<table>
+<thead><tr>
+<th>name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr></thead>
+<tbody>
+<tr>
+<td><code>dossier_id</code></td>
+      <td><code>string</code></td>
+      <td>The dossier the fill out request was created for.</td>
+    </tr>
+<tr>
+<td><code>event</code></td>
+      <td><code>string</code></td>
+      <td>The name of the event (opened/reminder/expired)</td>
+    </tr>
+<tr>
+<td><code>fill_out_request_id</code></td>
+      <td><code>integer</code></td>
+      <td> </td>
+    </tr>
+<tr>
+<td><code>url</code></td>
+      <td><code>string</code></td>
+      <td>url to fill in all open questionnaires (not just the ones for this fill out request).</td>
+    </tr>
+</tbody>
+</table><p>The callback url should contain the authentication for the request.</p>
+
+<h3 id="when-basic-http-authentication-fails">When basic HTTP authentication fails</h3>
+
+<pre class="headers"><code>Status: 401 Unauthorized</code></pre>
+
+<pre><code>(no response body)</code></pre>
+
+<h3 id="when-validations-fail">When validations fail</h3>
+
+<pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"open_till"</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s2">"in_past"</span>
+    <span class="p">],</span>
+    <span class="s2">"questionnaire_keys"</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s2">"invalid"</span>
+    <span class="p">]</span>
   <span class="p">}</span>
 <span class="p">}</span></code></pre>
+
+<h3 id="when-no-dossierid-is-provide">When no dossier_id is provide</h3>
+
+<pre class="headers no-response"><code>Status: 404 Not Found</code></pre>
+
+<pre><code>(no response body)</code></pre>
     </div>
 
 		<div id="js-sidebar" class="sidebar-shell">
