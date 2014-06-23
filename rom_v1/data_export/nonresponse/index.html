@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Language" content="en-us" />
   <meta http-equiv="imagetoolbar" content="false" />
   <meta name="MSSmartTagsPreventParsing" content="true" />
-  <title>Single Sign-On for Respondents | RoQua Developer Docs</title>
+  <title>Non-response | RoQua Developer Docs</title>
   <link href="/developer/assets/css/reset.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/960.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/uv_active4d.css" rel="stylesheet" type="text/css" />
@@ -35,7 +35,7 @@
 	<div class="sub-nav">
 		<h2>
       <strong>ROM:</strong>
-      Single Sign-On for Respondents
+      Non-response
       
     </h2>
 
@@ -47,19 +47,51 @@
 
   <div id="wrapper">
   	<div class="content">
-    	<p>The login for a patient (or other respondents for a dossier) is normally done by entering a token which the person has received by e-mail or snailmail. It’s also possible to open the login URL with this token prefilled as a query parameter, in which case the login will happen automatically and the person will be presented the first pending questionnaire immediately.</p>
+    	
+<p>For various reasons, patients will not always want to participate in ROM. This is recorded in the responses files as a number in the <code>questkey_non_response</code> column:</p>
 
-<h2 id="sso-url">SSO URL</h2>
+<table>
+<thead><tr>
+<th>roqua_id</th>
+<th>patient_id</th>
+<th>...</th>
+<th>ors_id</th>
+<th>...</th>
+<th>ors_non_response</th>
+<th>...</th>
+</tr></thead>
+<tbody><tr>
+<td></td>
+<td>1234</td>
+<td>...</td>
+<td>167</td>
+<td>...</td>
+<td>37</td>
+<td>...</td>
+</tr></tbody>
+</table><p>If a value is present in this column, it means that the patient either did not get contacted for a ROM measurement, did not reply, or did not want to complete the measurement. If the column is empty, it means that either the response was completed, or is still pending completion.</p>
 
-<p>To open RoQua client-interface and start filling in pending questionnaires, tell a browser
-window or frame to navigate to:</p>
+<p>This number can be traced to the <code>nonrespons/nonrespons.json</code> in the downloaded export. This file contains a list of all recorded non-responses. This is stored in a seperate file since multiple entries in the CSV can have the same non-response identifier (because non-response can be registerd for multiple questionnaires at once).</p>
 
-<pre><code>https://:ggzname.roqua.nl/login
-</code></pre>
+<pre><code class="language-javascript"><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">"id"</span><span class="o">:</span> <span class="mi">37</span><span class="p">,</span>
+    <span class="s2">"timestamp"</span><span class="o">:</span> <span class="s2">"2014-06-18T00:02:45.000+02:00"</span><span class="p">,</span>
+    <span class="s2">"data"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"reden_non_respons"</span><span class="o">:</span> <span class="s2">"Patient is wel benaderd voor de ROM meting, maar: Patient retourneert meetinstrument niet."</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="s2">"id"</span><span class="o">:</span> <span class="mi">38</span><span class="p">,</span>
+    <span class="s2">"timestamp"</span><span class="o">:</span> <span class="s2">"2014-06-19T02:00:00.000+02:00"</span><span class="p">,</span>
+    <span class="s2">"data"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"reden_non_respons"</span><span class="o">:</span> <span class="s2">"Patient is niet benaderd voor de ROM meting, omdat: Andere reden, namelijk:"</span><span class="p">,</span>
+      <span class="s2">"andere_reden"</span><span class="o">:</span> <span class="s2">"Foo bar"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">]</span></code></pre>
 
-<h2 id="parameters">Parameters</h2>
-
-<p>To this URL, you may add a number of query parameters. These parameters are used for specifying the token to be logged in, and specifying additional behaviour.</p>
+<h3 id="attributes">Attributes</h3>
 
 <table>
 <thead><tr>
@@ -69,20 +101,25 @@ window or frame to navigate to:</p>
     </tr></thead>
 <tbody>
 <tr>
-<td><code>token</code></td>
+<td><code>id</code></td>
+      <td><code>integer</code></td>
+      <td>Identifier as represented in the CSV export.</td>
+    </tr>
+<tr>
+<td><code>timestamp</code></td>
+      <td><code>string</code></td>
+      <td>An ISO 8601 formatted string that indicates for which date and time a non-response has been recorded.</td>
+    </tr>
+<tr>
+<td><code>data.reden_non_respons</code></td>
+      <td><code>string</code></td>
+      <td>Textual reason for this non-response</td>
+    </tr>
+<tr>
+<td><code>data.andere_reden</code></td>
       <td><code>string</code></td>
       <td>
-<strong>Required</strong>. The login token.</td>
-    </tr>
-<tr>
-<td><code>return_url</code></td>
-      <td><code>string</code></td>
-      <td>If given, when all pending questionnaires have been answered, thus completing the fill out session, RoQua will redirect to this URL instead of showing a default thank-you screen.</td>
-    </tr>
-<tr>
-<td><code>stylesheet</code></td>
-      <td><code>string</code></td>
-      <td>If given, this CSS URL will be loaded after our built-in stylesheets to allow some visual customization of the look and feel.</td>
+<em>Optional</em> Anything the user entered in a free text field for reasons that were not built-in</td>
     </tr>
 </tbody>
 </table>
