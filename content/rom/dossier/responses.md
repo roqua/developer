@@ -87,6 +87,22 @@ Name | Type | Description
     },
     {
       "name"           => "OQ-45",
+      "status"         => "aborted",
+      "open_from"      => nil,
+      "open_till"      => nil,
+      "completer_type" => "parent",
+      "completed_at"   => "2012-11-20T15:40:20+00:00+0200",
+      "completing_url" => "https://demo.roqua.nl/login?token=abcdefgh",
+      "values"         => {},
+      "outcome"        => {:scores=>{},
+                           :action=>nil,
+                           :actions=>{},
+                           :alarm=>nil,
+                           :attention=>nil,
+                           :complete=>nil}
+    },
+    {
+      "name"           => "OQ-45",
       "status"         => "completed",
       "open_from"      => nil,
       "open_till"      => nil,
@@ -188,7 +204,7 @@ Name | Type | Description
 Name             | Type     | Description
 -----------------|----------|--------------
 `name`           | `string` | The name of the response.
-`status`         | `string` | One of the following values:<br/>* `scheduled` - This response is scheduled to be completed at a later time. Cannot be completed right now, and visiting its URL will not result in this response being presented. See `open_from` and `open_till` attributes for the time window when this response will be `open`.<br/>* `open` - This response is completable right now.<br/> * `completed` - This response has been completed.
+`status`         | `string` | One of the following values:<br/>* `scheduled` - This response is scheduled to be completed at a later time. Cannot be completed right now, and visiting its URL will not result in this response being presented. See `open_from` and `open_till` attributes for the time window when this response will be `open`.<br/>* `open` - This response is completable right now.<br/> * `aborted` - Filling out the questionnaire has been aborted.<br/> * `completed` - This response has been completed.
 `open_from`      | `string` | An ISO 8601 formatted string that indicates when the response becomes completable, or `null` if this response is not only completable within a specific time window.
 `open_till`      | `string` | An ISO 8601 formatted string that indicates when the response expires and is no longer completable, or `null` if this response is not only completable within a specific time window.
 `completer_type` | `string` | Describes for whom this response is intended. Can be `patient`, `professional`, `parent`, `second_parent` or `teacher`. More types might be added later, therefore it is advised that API consumers select the desired types, and not reject the undesired types.
