@@ -17,12 +17,11 @@ Name | Type | Description
 -----|------|--------------
 `dossier_id`         | `string`  | **Required**. Unique identifier for the patient to be subscribed.
 `questionnaire_keys` | `array`   | Array of keys uniquely identifying the questionnaires to be filled out.
-`answer_ids`         | `array`   | Array containing ids of aborted responses for which filling out has to be resumed.
+`response_ids`         | `array`   | Array containing ids of aborted responses for which filling out has to be resumed.
 `return_to`          | `string`  | **Required**. URL to redirect to after the questionnaire has been filled out.
 
-When an array of questionnaire keys is provided, a set of blank questionnaires is filled out. When an array of answer
-ids corresponding with aborted responses id provided, a filling out set of previously aborted questionnaires can be
-resumed.
+When an array of questionnaire keys is provided, a set of blank questionnaires will be filled out. When an array of
+ids corresponding with aborted responses is provided, filling out will be resumed for these responses.
 
 ### Success
 
