@@ -22,10 +22,7 @@ Name | Type | Description
 
 When an array of questionnaire keys is provided, a set of blank questionnaires is filled out. When an array of answer
 ids corresponding with aborted responses id provided, a filling out set of previously aborted questionnaires can be
-resumed. When neither is provided an error is returned.
-
-<%= headers 422 %>
-<%= json errors: {'questionnaire_keys' => ['missing']} %>
+resumed.
 
 ### Success
 
@@ -44,6 +41,10 @@ resumed. When neither is provided an error is returned.
 <%= headers 404 %>
 <%= no_body %>
 
+### When no questionnaire keys or answer ids are provided.
+
+<%= headers 422 %>
+<%= json errors: {'questionnaire_keys' => ['missing']} %>
 
 ### When no questionnaire exists for one of the `questionnaire_key`s provided
 
