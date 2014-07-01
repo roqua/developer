@@ -90,17 +90,7 @@
 </tbody>
 </table><p>When an array of questionnaire keys is provided, a set of blank questionnaires is filled out. When an array of answer
 ids corresponding with aborted responses id provided, a filling out set of previously aborted questionnaires can be
-resumed. When neither is provided an error is returned.</p>
-
-<pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
-
-<pre><code class="language-javascript"><span class="p">{</span>
-  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">"questionnaire_keys"</span><span class="o">:</span> <span class="p">[</span>
-      <span class="s2">"missing"</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span></code></pre>
+resumed.</p>
 
 <h3 id="success">Success</h3>
 
@@ -121,6 +111,18 @@ resumed. When neither is provided an error is returned.</p>
 <pre class="headers no-response"><code>Status: 404 Not Found</code></pre>
 
 <pre><code>(no response body)</code></pre>
+
+<h3 id="when-no-questionnaire-keys-or-answer-ids-are-provided">When no questionnaire keys or answer ids are provided.</h3>
+
+<pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"questionnaire_keys"</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s2">"missing"</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
 
 <h3 id="when-no-questionnaire-exists-for-one-of-the-questionnairekeys-provided">When no questionnaire exists for one of the <code>questionnaire_key</code>s provided</h3>
 
