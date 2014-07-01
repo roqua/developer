@@ -72,10 +72,14 @@
 <strong>Required</strong>. Unique identifier for the patient to be subscribed.</td>
     </tr>
 <tr>
-<td><code>questionnaire_key</code></td>
-      <td><code>string</code></td>
-      <td>
-<strong>Required</strong>. Key uniquely identifying the questionnaire to be filled out.</td>
+<td><code>questionnaire_keys</code></td>
+      <td><code>array</code></td>
+      <td>Array of keys uniquely identifying the questionnaires to be filled out.</td>
+    </tr>
+<tr>
+<td><code>answer_ids</code></td>
+      <td><code>array</code></td>
+      <td>Array containing ids of aborted responses for which filling out has to be resumed.</td>
     </tr>
 <tr>
 <td><code>return_to</code></td>
@@ -84,12 +88,26 @@
 <strong>Required</strong>. URL to redirect to after the questionnaire has been filled out.</td>
     </tr>
 </tbody>
-</table><h3 id="success">Success</h3>
+</table><p>When an array of questionnaire keys is provided, a set of blank questionnaires is filled out. When an array of answer
+ids corresponding with aborted responses id provided, a filling out set of previously aborted questionnaires can be
+resumed. When neither is provided an error is returned.</p>
+
+<pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"questionnaire_keys"</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s2">"missing"</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<h3 id="success">Success</h3>
 
 <pre class="headers"><code>Status: 200 OK</code></pre>
 
 <pre><code class="language-javascript"><span class="p">{</span>
-  <span class="s2">"questionnaire_url"</span><span class="o">:</span> <span class="s2">"https://roqua.dev/fill_out/session/login?fill_out_session_key=fcecc8dd96fa7eb1&amp;hmac=a1bd635d733b18cc034eb7f8d1f75daf6951dad23feb7c2ec8fe6257a590908a&amp;nonce=6dae8fb5601ccfb81d7cbedb5986fd25&amp;timestamp=1399363374"</span>
+  <span class="s2">"fill_out_url"</span><span class="o">:</span> <span class="s2">"https://roqua.dev/fill_out/session/login?fill_out_session_key=fcecc8dd96fa7eb1&amp;hmac=a1bd635d733b18cc034eb7f8d1f75daf6951dad23feb7c2ec8fe6257a590908a&amp;nonce=6dae8fb5601ccfb81d7cbedb5986fd25&amp;timestamp=1399363374"</span>
 <span class="p">}</span></code></pre>
 
 <h3 id="when-basic-http-authentication-fails">When basic HTTP authentication fails</h3>
@@ -104,17 +122,17 @@
 
 <pre><code>(no response body)</code></pre>
 
-<h3 id="when-no-questionnaire-exists-with-the-questionnairekey-provided">When no questionnaire exists with the <code>questionnaire_key</code> provided</h3>
+<h3 id="when-no-questionnaire-exists-for-one-of-the-questionnairekeys-provided">When no questionnaire exists for one of the <code>questionnaire_key</code>s provided</h3>
 
-<pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
+<pre class="headers no-response"><code>Status: 404 Not Found</code></pre>
 
-<pre><code class="language-javascript"><span class="p">{</span>
-  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">"questionnaire_key"</span><span class="o">:</span> <span class="p">[</span>
-      <span class="s2">"questionnaire_not_found_by_key"</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span></code></pre>
+<pre><code>(no response body)</code></pre>
+
+<h3 id="when-no-aborted-answer-exists-for-one-of-the-answerids-provided">When no aborted answer exists for one of the <code>answer_id</code>s provided</h3>
+
+<pre class="headers no-response"><code>Status: 404 Not Found</code></pre>
+
+<pre><code>(no response body)</code></pre>
 
 <h3 id="when-no-returnto-url-is-provided">When no <code>return_to</code> url is provided</h3>
 
