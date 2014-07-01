@@ -47,7 +47,7 @@ Requests for more detailed information about responses are namespaced under a sp
 Name | Type | Description
 ---- |------|--------------
 `respondent_type` | `string` | Request only responses where the `completer_type` would equal the given value.
-`status`          | `string` | Request only responses where the `status` would equal the given value. Can be one of the values 'completed', 'aborted, 'open' or 'scheduled'.
+`status`          | `string` | ['completed', 'aborted', 'open', 'scheduled'] Request only responses where the `status` would equal the given value.
 
 ### Response
 
