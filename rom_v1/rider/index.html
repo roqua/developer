@@ -36,8 +36,8 @@
 		<h2>
       <strong>ROM:</strong>
       Technical Rider
-      <span class="status status-draft">
-          draft
+      <span class="status status-stable">
+          stable
           </span>
     </h2>
 
@@ -65,9 +65,14 @@ tunnel to your network.</p>
 
 <ul>
 <li>
-    <p>Our network is using the 10.0.0.0/8 range internally. Yours probably does too.
-To prevent collisions and routing problems we should pick one of the other
-private ranges for our VPN-traffic, e.g. 172.16.0.0/12.</p>
+    <p>As VPN endpoints, we prefer to set up VPNs between two public IP addresses.
+This prevents any kind of collision between IP addresses used by either us,
+or other parties that have VPNs with us.</p>
+
+    <p>If this is absolutely impossible, our network is using the 10.0.0.0/8 range
+internally. Yours probably does too. To prevent collisions and routing
+problems we should pick IP addresses in of the other private ranges,
+e.g. 172.16.0.0/12.</p>
   </li>
   <li>
     <p>We would like to set up monitoring to check that the VPN is actually responsive.
