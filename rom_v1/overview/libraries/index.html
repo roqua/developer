@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Language" content="en-us" />
   <meta http-equiv="imagetoolbar" content="false" />
   <meta name="MSSmartTagsPreventParsing" content="true" />
-  <title>Data Exports | RoQua Developer Docs</title>
+  <title>Libraries | RoQua Developer Docs</title>
   <link href="/developer/assets/css/reset.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/960.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/uv_active4d.css" rel="stylesheet" type="text/css" />
@@ -38,7 +38,7 @@
   <div class="sub-nav">
     <h2>
       <strong>ROM</strong>
-      : Data Exports
+      : Libraries
       <span class="status status-draft">
           draft
           </span>
@@ -47,65 +47,11 @@
 
   <div id="wrapper">
     <div class="content">
-      <ul id="markdown-toc">
-<li><a href="#list-known-export-versions">List known export versions</a></li>
-  <li><a href="#get-the-export-in-the-latest-export-version">Get the export in the latest export version</a></li>
-  <li><a href="#get-the-export-in-a-specific-export-version">Get the export in a specific export version</a></li>
-</ul><h2 id="list-known-export-versions">List known export versions</h2>
+      <h2 id="client-libraries">Client Libraries</h2>
 
-<pre><code>GET /api/v1/data_exports
-</code></pre>
-
-<h3 id="response">Response</h3>
-
-<pre class="headers"><code>Status: 200 OK</code></pre>
-
-<pre><code class="language-javascript"><span class="p">[</span>
-  <span class="p">{</span>
-    <span class="s2">"id"</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="s2">"key"</span><span class="o">:</span> <span class="s2">"v201402"</span><span class="p">,</span>
-    <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Exportformaat van na 20 februari 2014"</span><span class="p">,</span>
-    <span class="s2">"hash"</span><span class="o">:</span> <span class="s2">"xulog-rarat-zorud-nesys-memit"</span><span class="p">,</span>
-    <span class="s2">"version"</span><span class="o">:</span> <span class="s2">"2014-02-20T10:58:29+01:00"</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="s2">"id"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="s2">"key"</span><span class="o">:</span> <span class="s2">"v201205"</span><span class="p">,</span>
-    <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"Exportformaat van vóór 16 mei 2012"</span><span class="p">,</span>
-    <span class="s2">"hash"</span><span class="o">:</span> <span class="s2">"xovoc-polos-kosif-puhiz-kycut"</span><span class="p">,</span>
-    <span class="s2">"version"</span><span class="o">:</span> <span class="s2">"2012-05-03T14:13:45+02:00"</span>
-  <span class="p">}</span>
-<span class="p">]</span></code></pre>
-
-<h2 id="get-the-export-in-the-latest-export-version">Get the export in the latest export version</h2>
-
-<pre><code>GET /api/v1/data_exports/download
-</code></pre>
-
-<h3 id="response-1">Response</h3>
-
-<pre class="headers"><code>Status: 200 OK
-Content-Type: application/zip
-Content-Disposition: attachment; filename="demo_v201402_20140220105832.zip"
-Content-Transfer-Encoding: binary</code></pre>
-
-<pre><code>(the binary data for the zip file)
-</code></pre>
-
-<h2 id="get-the-export-in-a-specific-export-version">Get the export in a specific export version</h2>
-
-<pre><code>GET /api/v1/data_exports/:id
-</code></pre>
-
-<h3 id="response-2">Response</h3>
-
-<pre class="headers"><code>Status: 200 OK
-Content-Type: application/zip
-Content-Disposition: attachment; filename="demo_v201402_20140220105832.zip"
-Content-Transfer-Encoding: binary</code></pre>
-
-<pre><code>(the binary data for the zip file)
-</code></pre>
+<ul>
+<li><a href="https://rubygems.org/gems/roqua-rom-api/">Ruby</a></li>
+</ul>
     </div>
 
     <div id="js-sidebar" class="sidebar-shell">
