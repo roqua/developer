@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="Content-Language" content="en-us" />
+  <meta http-equiv="imagetoolbar" content="false" />
+  <meta name="MSSmartTagsPreventParsing" content="true" />
+  <title>Single Sign-On for Patient Dossiers | RoQua Developer Docs</title>
+  <link href="/developer/assets/css/reset.css" rel="stylesheet" type="text/css" />
+  <link href="/developer/assets/css/960.css" rel="stylesheet" type="text/css" />
+  <link href="/developer/assets/css/uv_active4d.css" rel="stylesheet" type="text/css" />
+  <link href="/developer/assets/css/documentation.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="/developer/assets/css/pygments.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="/developer/assets/js/jquery.js" type="text/javascript"></script>
+  <script src="/developer/assets/js/documentation.js" type="text/javascript"></script>
+</head>
+
+
+
+
+<body class="rom">
+  <div id="header-wrapper">
+  <div id="header">
+    <div>
+      <a class="logo" href="/developer/">RoQua Developer</a>
+      <ul class="nav">
+        <li class="home"><a href="/developer/">Overview</a></li>
+        <li><a href="/developer/core/">Core</a></li>
+        <li class="active"><a href="/developer/rom/">ROM</a></li>
+        <li><a href="/developer/quby/">Quby</a></li>
+        <li><a href="http://roqua.nl/contact">Support</a></li>
+      </ul>
+    </div>
+  </div><!-- #header -->
+</div><!-- #header-wrapper -->
+
+
+  <div class="sub-nav">
+    <h2>
+      <strong>ROM</strong>
+      : Single Sign-On for Patient Dossiers
+      <span class="status status-stable">
+          stable
+          </span>
+    </h2>
+  </div>
+
+  <div id="wrapper">
+    <div class="content">
+      <ul id="markdown-toc">
+<li><a href="#sso-url">SSO URL</a></li>
+  <li><a href="#parameters">Parameters</a></li>
+  <li><a href="#example-implementation-both-client-and-server">Example implementation, both client and server</a></li>
+  <li><a href="#todo">TODO</a></li>
+  <li><a href="#references">References</a></li>
+</ul><p>When used in conjunction with an EPD, RoQua has an authentication scheme that relies on the EPD to open a URL that will authenticate a user and open a given dossier number. This enables EPD vendors to build a single sign-on solution that integrates RoQua without the need for the management of users within RoQua. When the SSO-authentication is enabled, the only way for a user to open a dossier, is when the EPD generates a URL with a valid signature.</p>
+
+<p>This signature is generated as a hash of all parameters in the URL, as well as an organization specific secret key. RoQua can then validate the request by calculating the hash itself, and comparing it against the given hash. This protects against tampering with the URL.</p>
+
+<p>In order to ensure URLs cannot be used more than once, a nonce must be supplied as one of the parameters.</p>
+
+<p>A <a href="https://github.com/roqua/authmac">reference implementation</a> is available. See the <em><a href="#example-implementation-both-client-and-server">Example</a></em> section below for more information.</p>
+
+<h2 id="sso-url">SSO URL</h2>
+
+<p>To open RoQua EPD-interface as a given user for a given dossier, tell a browser
+window or frame to navigate to:</p>
+
+<pre><code>https://epd.:ggzname.roqua.nl/epd/session/create
+</code></pre>
+
+<h2 id="parameters">Parameters</h2>
+
+<p>To this URL, you must add a number of query parameters (i.e. <code>?key=value&amp;foo=bar&amp;baz=quux</code>). These parameters are used for specifying the user to be logged in, the dossier to be shown, and authenticating that the request is signed by a valid authority.</p>
+
+<p>The following query parameters are <strong>required</strong>:</p>
+
+<h3 id="version---version-of-the-sso-specification-implemented">
+<code>version</code> - Version of the SSO specification implemented</h3>
+
+<p>The value of this parameter should be <code>3</code> if you are implementing the specification you are currently reading. This number will be increased whenever we change the specification in a manner that would break existing implementations. Older versions will remain working unless there are security issues with that version of the spec.</p>
+
+<h3 id="consumerkey---the-api-consumer-key-you-were-issued">
+<code>consumer_key</code> - The API consumer key you were issued.</h3>
+
+<p>All parties that should be able to generate valid SSO requests are issued two strings: a <code>consumer_key</code> and a <code>consumer_secret</code>. The consumer key is sent as a parameter, so that we know which secret to use while validating the HMAC for the request. These pairs of keys can be generated in the RoQua Admin. The <code>consumer_secret</code> is only shown once after generating, if you forget the key or secret you must invalide the old pair and generate a new pair.</p>
+
+<h3 id="nonce---randomly-generated-unique-token">
+<code>nonce</code> - Randomly generated unique token</h3>
+
+<p>Nonces should be unique for each request, and are used to determine whether requests have been submitted multiple times. In our reference application we generate nonces by generating a string of 32 hexadecimal randomly chosen characters, but any approach that produces relatively random alphanumeric strings should suffice.</p>
+
+<h3 id="timestamp---the-unix-time-when-this-request-was-constructed">
+<code>timestamp</code> - The Unix time when this request was constructed</h3>
+
+<p>Timestamps are supplied as <a href="http://en.wikipedia.org/wiki/Unix_time">the number of seconds since the Unix epoch</a> at the moment the request was generated, which should be easily generated in all programming languages. Note that we reject requests with timestamps that are too far in the past or future, and that it is therefore important to keep the clock of the system generating requests in sync with NTP. Additionally, in the beginning of the year 2038 you might wish for this to be generated as a 64-bit signed integer.</p>
+
+<p>Because we reject requests with old timestamps, it is safe to assume that the uniqueness of a nonce only has to be guaranteed for up to 24 hours, if you desire to make sure you generate unique nonces. After all, it is reasonable to say that the chance of a collision between to randomly generated nonces is slim, and the consequences of it are minor (the sign-on would fail, and the user would likely try again, which would generate a new nonce), and that such guarantees need not be made by the EPD.</p>
+
+<h3 id="userid---identifier-for-the-professional">
+<code>userid</code> - Identifier for the professional</h3>
+
+<p>This identifies the employee being signed in.</p>
+
+<p>Identifiers must be completely unique; if you’re using multiple datastores on your end, for example, make sure there cannot be any collisions when passing them to RoQua as that will result in account conflicts.</p>
+
+<h3 id="clientid---identifier-for-the-dossier">
+<code>clientid</code> - Identifier for the dossier</h3>
+
+<p>This identifies patient dossiers in RoQua. The value given here will also be used in our data exports and in HL7 communication for data associated with this dossier.</p>
+
+<p>Identifiers must be completely unique; if you’re using multiple datastores on your end, for example, make sure there cannot be any collisions when passing them to RoQua as that will result in account conflicts.</p>
+
+<h3 id="hmac---hmac-sha256-hash">
+<code>hmac</code> - HMAC-SHA256 hash.</h3>
+
+<p>In order to make sure that requests cannot be tampered with, we require that all requests are signed with an HMAC. The mechanism behind HMAC is described in <a href="http://www.ietf.org/rfc/rfc2104.txt">RFC 2104</a>, although as with all crypto-related things, please do not go implement them yourself. OpenSSL has an implementation that can be used in most programming languages that can interface with a C-library, so it’s doubtful there is not already a library that can take care of the HMAC algorithm for you.</p>
+
+<p>The HMAC algorithm can be used with any cryptographic hashing function, and we decided that <strong>SHA256</strong> should be safe enough for the forseeable future.</p>
+
+<p>HMACs then are calculated using three parameters: the hashing function, a secret key and a message. The secret key is the <code>consumer_secret</code>, a 64 character long string which can be generated in the RoQua Admin module.</p>
+
+<p>The message is generated by taking all parameter values, sorting them by their parameter keys, and joining them with a pipe character <code>|</code>. This means that the following parameters:</p>
+
+<pre><code>foo=value-of-foo&amp;bar=value-of-bar&amp;timestamp=1359373315
+</code></pre>
+
+<p>would become the following input message for the HMAC:</p>
+
+<pre><code>value-of-bar|value-of-foo|1359373315
+</code></pre>
+
+<p>Given a secret <code>very-secret</code>, this message would result in the following HMAC: <code>7ada2feaa64e7af5665b5ad92530f64983fdb3c0</code>.</p>
+
+<h2 id="example-implementation-both-client-and-server">Example implementation, both client and server</h2>
+
+<p>The library we use to sign and validate requests is open source and can be found <a href="https://github.com/roqua/authmac">on Github</a>. In that library, we have an example web server implemented in <a href="https://github.com/roqua/authmac/blob/master/example/app.rb">this file</a>. This web server is running <a href="http://roqua-urlspec.herokuapp.com">on Heroku</a>, where you can use it to validate your own requests. In that case, use <code>http://roqua-urlspec.herokuapp.com/auth</code> as base URL, instead of the one documented above.</p>
+
+<h2 id="todo">TODO</h2>
+
+<ul>
+<li>Explain the sorting procedure for the HMAC message better. Possibly just do it like Twitter does (see references)</li>
+  <li>Explain the procedure for URL-encoding query parameters?</li>
+</ul><h2 id="references">References</h2>
+
+<ul>
+<li><a href="https://dev.twitter.com/docs/auth/creating-signature">Twitter API Authentication</a></li>
+  <li><a href="https://developers.facebook.com/docs/howtos/login/signed-request/#step2">Facebook API Authentication</a></li>
+  <li><a href="http://rc3.org/2011/12/02/using-hmac-to-authenticate-web-service-requests/">Using HMAC to authenticate Web service requests</a></li>
+  <li><a href="http://blog.jcoglan.com/2012/06/09/why-you-should-never-use-hash-functions-for-message-authentication/">Why you should never ever use hash functions for message authentication</a></li>
+  <li><a href="http://tools.ietf.org/html/rfc4868#page-17">RFC 4868 - HMAC-SHA256, SHA384, and SHA512 in IPsec</a></li>
+</ul>
+    </div>
+
+    <div id="js-sidebar" class="sidebar-shell">
+      <div class="js-toggle-list sidebar-module expandable">
+        <ul>
+          
+            <li class="js-topic">
+              <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/rom/overview/">Overview</a></h3>
+              <ul class="js-guides">
+                
+                  <li><a href="/developer/rom/overview/authentication/">Authentication</a></li>
+                
+                  <li><a href="/developer/rom/overview/libraries/">Libraries</a></li>
+                
+                  <li><a href="/developer/rom/overview/rider/">Technical Rider</a></li>
+                
+              </ul>
+            </li>
+          
+            <li class="js-topic">
+              <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/rom/sso/">Single Sign On</a></h3>
+              <ul class="js-guides">
+                
+                  <li><a href="/developer/rom/sso/completing_questionnaires/">Single Sign-On for Respondents</a></li>
+                
+                  <li><a href="/developer/rom/sso/patient_dossier/">Single Sign-On for Patient Dossiers</a></li>
+                
+              </ul>
+            </li>
+          
+            <li class="js-topic">
+              <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/rom/hl7/">HL7</a></h3>
+              <ul class="js-guides">
+                
+                  <li><a href="/developer/rom/hl7/a19/">HL7 2.4 QRY^A19</a></li>
+                
+                  <li><a href="/developer/rom/hl7/oru/">HL7 2.4 ORU^R01</a></li>
+                
+              </ul>
+            </li>
+          
+            <li class="js-topic">
+              <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/rom/global/">Global</a></h3>
+              <ul class="js-guides">
+                
+                  <li><a href="/developer/rom/global/data_exports/">Data Exports</a></li>
+                
+                  <li><a href="/developer/rom/global/questionnaires/">Questionnaires</a></li>
+                
+                  <li><a href="/developer/rom/global/service_health/">Service Health</a></li>
+                
+              </ul>
+            </li>
+          
+            <li class="js-topic">
+              <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/rom/dossier/">Dossier-specific data</a></h3>
+              <ul class="js-guides">
+                
+                  <li><a href="/developer/rom/dossier/dossiers/">Dossiers</a></li>
+                
+                  <li><a href="/developer/rom/dossier/fill_out_requests/">Fill out requests</a></li>
+                
+                  <li><a href="/developer/rom/dossier/fill_out_sessions/">FillOut Sessions</a></li>
+                
+                  <li><a href="/developer/rom/dossier/protocol_subscriptions/">Protocol Subscriptions</a></li>
+                
+                  <li><a href="/developer/rom/dossier/responses/">Responses</a></li>
+                
+              </ul>
+            </li>
+          
+            <li class="js-topic">
+              <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/rom/data_export/">Data Export</a></h3>
+              <ul class="js-guides">
+                
+                  <li><a href="/developer/rom/data_export/nonresponse/">Non-response</a></li>
+                
+                  <li><a href="/developer/rom/data_export/responses/">Responses</a></li>
+                
+              </ul>
+            </li>
+          
+        </ul>
+      </div> <!-- /sidebar-module -->
+      <div class="sidebar-module notice">
+        <p>This website is a <a href="https://github.com/roqua/developer" target="_blank">public GitHub repository</a>. Please help us by forking the project and adding to it.</p>
+      </div>
+    </div><!-- /sidebar-shell -->
+  </div><!-- #wrapper -->
+
+  	<div id="footer" >
+    <div class="lower_footer">
+      <ul class="footer-cell">
+      </ul>
+
+      <span class="footer-cell">
+      </span>
+
+      <ul class="footer-cell">
+        <li><a href="http://roqua.nl/contact">Contact</a></li>
+        <li><a href="https://roqua.zendesk.com">Status</a></li>
+        <li><a href="https://roqua.zendesk.com/forums/20271351-Announcements">Release News</a></li>
+      </ul>
+    </div>
+
+		<div class="wrapper">
+			<p>Design &copy; <span class="js-year">2014</span> RoQua. All rights reserved. Except where otherwise noted, content on this site is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/us/">Creative Commons CC-BY license</a>.<br>Many thanks to <a href="https://developer.github.com/">GitHub</a> for providing a CC-BY licenced repository for us to use and adapt.</p>
+		</div>
+
+  </div><!-- /#footer -->
+
+</body>
+</html>

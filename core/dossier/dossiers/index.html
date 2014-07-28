@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Language" content="en-us" />
   <meta http-equiv="imagetoolbar" content="false" />
   <meta name="MSSmartTagsPreventParsing" content="true" />
-  <title>Overview | RoQua Developer Docs</title>
+  <title>Dossiers | RoQua Developer Docs</title>
   <link href="/developer/assets/css/reset.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/960.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/uv_active4d.css" rel="stylesheet" type="text/css" />
@@ -24,8 +24,8 @@
     <div>
       <a class="logo" href="/developer/">RoQua Developer</a>
       <ul class="nav">
-        <li class="home active"><a href="/developer/">Overview</a></li>
-        <li><a href="/developer/core/">Core</a></li>
+        <li class="home"><a href="/developer/">Overview</a></li>
+        <li class="active"><a href="/developer/core/">Core</a></li>
         <li><a href="/developer/rom/">ROM</a></li>
         <li><a href="/developer/quby/">Quby</a></li>
         <li><a href="http://roqua.nl/contact">Support</a></li>
@@ -37,8 +37,8 @@
 
   <div class="sub-nav">
     <h2>
-      <strong>Overview</strong>
-      
+      <strong>Core</strong>
+      : Dossiers
       <span class="status status-draft">
           draft
           </span>
@@ -47,21 +47,16 @@
 
   <div id="wrapper">
     <div class="content">
-      <p>RoQua consists of several applications. Some of these are internal only,
-but for the sake of simplicity, we keep documentation for everything in here, public and private applications alike. If a private application sounds like just the thing you need, feel free to contact us and we can see if we can make it a public webservice.</p>
+      <h2 id="get-a-single-dossier">Get a single dossier</h2>
 
-<ul>
-<li>
-    <p>Core is our internal service that hands out internal dossier identifiers,
-and knows the personally identifying information about dossiers. This ensures
-that other applications and services only need to remember anonymous data.</p>
-  </li>
-  <li>
-    <p>ROM is the original RoQua application. It’s used by health care providers
-and their patients. If you’re unsure which documentation you need, you
-probably want to look at the API reference for RoQua ROM.</p>
-  </li>
-</ul>
+<pre><code>GET /api/v1/dossiers/:id
+</code></pre>
+
+<h3 id="response">Response</h3>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"id"</span><span class="o">:</span> <span class="s2">"long-uuid"</span>
+<span class="p">}</span></code></pre>
     </div>
 
     <div id="js-sidebar" class="sidebar-shell">
@@ -69,44 +64,32 @@ probably want to look at the API reference for RoQua ROM.</p>
         <ul>
           
             <li class="js-topic">
-              <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/core/">Core</a></h3>
+              <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/core/overview/">Overview</a></h3>
               <ul class="js-guides">
                 
-                  <li><a href="/developer/core/overview/">Overview</a></li>
+                  <li><a href="/developer/core/overview/libraries/">Libraries</a></li>
                 
-                  <li><a href="/developer/core/authentication/">Authentication</a></li>
-                
-                  <li><a href="/developer/core/dossier/">Dossier-specific data</a></li>
+                  <li><a href="/developer/core/overview/oauth_provider/">OAuth Provider</a></li>
                 
               </ul>
             </li>
           
             <li class="js-topic">
-              <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/quby/">Quby</a></h3>
+              <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/core/authentication/">Authentication</a></h3>
               <ul class="js-guides">
                 
-                  <li><a href="/developer/quby/engine/">Engine</a></li>
+                  <li><a href="/developer/core/authentication/http_basic/">HTTP Basic</a></li>
                 
-                  <li><a href="/developer/quby/opencpu/">OpenCPU</a></li>
+                  <li><a href="/developer/core/authentication/oauth/">OAuth Access Token</a></li>
                 
               </ul>
             </li>
           
             <li class="js-topic">
-              <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/rom/">ROM</a></h3>
+              <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/core/dossier/">Dossier-specific data</a></h3>
               <ul class="js-guides">
                 
-                  <li><a href="/developer/rom/overview/">Overview</a></li>
-                
-                  <li><a href="/developer/rom/sso/">Single Sign On</a></li>
-                
-                  <li><a href="/developer/rom/hl7/">HL7</a></li>
-                
-                  <li><a href="/developer/rom/global/">Global</a></li>
-                
-                  <li><a href="/developer/rom/dossier/">Dossier-specific data</a></li>
-                
-                  <li><a href="/developer/rom/data_export/">Data Export</a></li>
+                  <li><a href="/developer/core/dossier/dossiers/">Dossiers</a></li>
                 
               </ul>
             </li>
