@@ -48,7 +48,16 @@
   <div id="wrapper">
     <div class="content">
       <ul id="markdown-toc">
-<li><a href="#start-a-fill-out-session">Start a fill out session.</a></li>
+<li>
+<a href="#start-a-fill-out-session">Start a fill out session.</a>    <ul>
+<li><a href="#parameters">Parameters</a></li>
+      <li><a href="#success">Success</a></li>
+      <li><a href="#when-basic-http-authentication-fails">When basic HTTP authentication fails</a></li>
+      <li><a href="#when-no-dossierid-is-provided">When no <code>dossier_id</code> is provided</a></li>
+      <li><a href="#when-no-questionnaire-exists-with-the-questionnairekey-provided">When no questionnaire exists with the <code>questionnaire_key</code> provided</a></li>
+      <li><a href="#when-no-returnto-url-is-provided">When no <code>return_to</code> url is provided</a></li>
+    </ul>
+</li>
 </ul><h2 id="start-a-fill-out-session">Start a fill out session.</h2>
 
 <pre><code>POST /api/v1/dossiers/:dossier_id/fill_out_sessions/

@@ -47,7 +47,23 @@
 
   <div id="wrapper">
     <div class="content">
-      <p>TODO</p>
+      <p>We use QRY^A19 messages to proactively ask for personally identifying details on patients. By relying on this message type, instead of using the standard set of ADR messages, we can forego storing these details on our servers, and instead fetch them as needed.</p>
+
+<h3 id="request">Request</h3>
+
+<pre><code>MSH|^~\&amp;|ROQUA|RGOC|YOURAPP|YOURNAME|20140730145319.370||QRY^A19|e1c3297648|P|2.4|||NE|NE
+QRD|20140730|R|I|e1c3297648|||1^RD|PATIENT_ID|DEM|
+</code></pre>
+
+<h3 id="response">Response</h3>
+
+<p>Additional fields like ROL, PV1 etc may be returned, but will be ignored.</p>
+
+<pre><code>MSH|^~\&amp;|YOURAPP|YOURNAME|ROQUA|RGOC|201407301453||ADR^A19|e1c3297648|P|2.4|||NE
+MSA|AA|e1c3297648
+QRD|20140730|R|I|e1c3297648|||1^RD|PATIENT_ID|DEM
+PID|1||PATIENT_ID^^^^PI~""^^^^NNNLD~""^^^GIRO^BA~""^^^BANK^BA||Lastname&amp;&amp;Lastname^Firstname^F.A.B.^^^^L||19801219|M|||Streetname 12a&amp;Streetname&amp;12a^^City^""^1234AB^NL^M||06-12345678|""||S|||||||""|N|||||""|N
+</code></pre>
     </div>
 
     <div id="js-sidebar" class="sidebar-shell">
