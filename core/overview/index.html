@@ -47,7 +47,26 @@
 
   <div id="wrapper">
     <div class="content">
-      
+      <h1 id="general-flow">General flow</h1>
+
+<h2 id="validation-errors">validation errors</h2>
+
+<p>When trying to create an object and a validation fails (e.g. an email doesn’t have an @) a status of 422 (unprocessable_entity) is returned with a list of errors.</p>
+
+<p>The errors are keywords, so you can use your own translation files. For a list (TODO) we will link the default translation file of the core_api gem when it’s up.</p>
+
+<pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"email"</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s2">"invalid_email"</span>
+    <span class="p">],</span>
+    <span class="s2">"birthdate"</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s2">"invalid_date"</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
     </div>
 
     <div id="js-sidebar" class="sidebar-shell">
