@@ -48,35 +48,12 @@
   <div id="wrapper">
     <div class="content">
       <ul id="markdown-toc">
-<li>
-<a href="#retrieve-all-active-protocol-subscriptions-for-a-patient">Retrieve all active protocol subscriptions for a patient</a>    <ul>
-<li><a href="#parameters">Parameters</a></li>
-      <li><a href="#success">Success</a></li>
-      <li><a href="#when-basic-http-authentication-fails">When basic HTTP authentication fails</a></li>
-      <li><a href="#when-no-dossierid-is-provided">When no <code>dossier_id</code> is provided</a></li>
-    </ul>
-</li>
-  <li>
-<a href="#start-a-protocol-subscription">Start a protocol subscription</a>    <ul>
-<li><a href="#parameters-1">Parameters</a></li>
-      <li><a href="#success-1">Success</a></li>
-      <li><a href="#when-basic-http-authentication-fails-1">When basic HTTP authentication fails</a></li>
-      <li><a href="#when-no-dossierid-is-provided-1">When no <code>dossier_id</code> is provided</a></li>
-      <li><a href="#when-no-protocol-exists-with-the-protocolkey-provided">When no protocol exists with the <code>protocol_key</code> provided</a></li>
-    </ul>
-</li>
-  <li>
-<a href="#stop-a-protocol-subscription">Stop a protocol subscription.</a>    <ul>
-<li><a href="#parameters-2">Parameters</a></li>
-      <li><a href="#success-2">Success</a></li>
-      <li><a href="#when-basic-http-authentication-fails-2">When basic HTTP authentication fails</a></li>
-      <li><a href="#when-no-dossierid-is-provided-2">When no <code>dossier_id</code> is provided</a></li>
-      <li><a href="#when-no-protocol-subscription-exists-with-the-given-id">When no protocol subscription exists with the given <code>id</code></a></li>
-    </ul>
-</li>
+<li><a href="#list-active-protocol-subscriptions-for-a-patient">List active protocol subscriptions for a patient</a></li>
+  <li><a href="#start-a-protocol-subscription">Start a protocol subscription</a></li>
+  <li><a href="#stop-a-protocol-subscription">Stop a protocol subscription.</a></li>
 </ul><p>Manage protocol subscriptions for individual patients.</p>
 
-<h2 id="retrieve-all-active-protocol-subscriptions-for-a-patient">Retrieve all active protocol subscriptions for a patient</h2>
+<h2 id="list-active-protocol-subscriptions-for-a-patient">List active protocol subscriptions for a patient</h2>
 
 <pre><code>GET /api/v1/dossiers/:dossier_id/protocol_subscriptions
 </code></pre>
