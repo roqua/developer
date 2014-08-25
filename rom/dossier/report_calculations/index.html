@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Language" content="en-us" />
   <meta http-equiv="imagetoolbar" content="false" />
   <meta name="MSSmartTagsPreventParsing" content="true" />
-  <title>Responses | RoQua Developer Docs</title>
+  <title>Report Calculations | RoQua Developer Docs</title>
   <link href="/developer/assets/css/reset.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/960.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/uv_active4d.css" rel="stylesheet" type="text/css" />
@@ -38,7 +38,7 @@
   <div class="sub-nav">
     <h2>
       <strong>ROM</strong>
-      : Responses
+      : Report Calculations
       <span class="status status-draft">
           draft
           </span>
@@ -47,7 +47,111 @@
 
   <div id="wrapper">
     <div class="content">
-      
+      <ul id="markdown-toc">
+<li><a href="#calculations-over-multiple-answers">Calculations over multiple answers.</a></li>
+</ul><h2 id="calculations-over-multiple-answers">Calculations over multiple answers.</h2>
+
+<h3 id="calculate-over-specific-answers">Calculate over specific answers.</h3>
+
+<pre><code>GET /api/v1/dossiers/:dossier_id/report_calculations?calculator=test&amp;answer_ids[]=1&amp;answer_ids[]=6
+</code></pre>
+
+<h3 id="calculate-over-answers-defined-by-filters">Calculate over answers defined by filters</h3>
+
+<pre><code>GET /api/v1/dossiers/:dossier_id/report_calculations?calculator=test&amp;filters[questionnaire_keys][]=rand361
+</code></pre>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+<thead><tr>
+<th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr></thead>
+<tbody>
+<tr>
+<td><code>dossier_id</code></td>
+      <td><code>string</code></td>
+      <td>
+<strong>Required</strong>. Unique identifier for the patient to be subscribed.</td>
+    </tr>
+<tr>
+<td><code>calculator</code></td>
+      <td><code>string</code></td>
+      <td>
+<strong>Required</strong>. Name of ReportCalculator.</td>
+    </tr>
+<tr>
+<td><code>answer_ids</code></td>
+      <td><code>array of int</code></td>
+      <td>specific answers to do the calculation over.</td>
+    </tr>
+<tr>
+<td><code>filters</code></td>
+      <td><code>hash</code></td>
+      <td>See below. Required if no answers_ids are given.</td>
+    </tr>
+</tbody>
+</table><h4 id="filter-attributes">filter attributes:</h4>
+
+<table>
+<thead><tr>
+<th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr></thead>
+<tbody>
+<tr>
+<td><code>questionnaire_keys</code></td>
+      <td><code>array of string</code></td>
+      <td>
+<strong>Required</strong>. Keys of the questionnaires we want answers from.</td>
+    </tr>
+<tr>
+<td><code>completed_after</code></td>
+      <td><code>integer</code></td>
+      <td>Unix timestamp search for answers after this time</td>
+    </tr>
+<tr>
+<td><code>completed_before</code></td>
+      <td><code>integer</code></td>
+      <td>Unix timestamp search for answers before this time</td>
+    </tr>
+</tbody>
+</table><h3 id="success">Success</h3>
+
+<pre class="headers"><code>Status: 200 OK</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"results"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"key"</span><span class="o">:</span> <span class="s2">"value"</span>
+  <span class="p">},</span>
+  <span class="s2">"answer_ids"</span><span class="o">:</span> <span class="p">[</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="mi">6</span>
+  <span class="p">]</span>
+<span class="p">}</span></code></pre>
+
+<h3 id="when-validations-fail">When validations fail</h3>
+
+<pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"filters"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"questionnaire_keys"</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s2">"blank"</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<h3 id="when-no-dossierid-is-provided">When no dossier_id is provided</h3>
+
+<pre class="headers no-response"><code>Status: 404 Not Found</code></pre>
+
+<pre><code>(no response body)</code></pre>
     </div>
 
     <div id="js-sidebar" class="sidebar-shell">
