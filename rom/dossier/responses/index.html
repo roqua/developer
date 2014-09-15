@@ -107,7 +107,7 @@
 <tr>
 <td><code>status</code></td>
       <td><code>string</code></td>
-      <td>Request only responses where the <code>status</code> would equal the given value.</td>
+      <td>[‘completed’, ‘aborted’, ‘open’, ‘scheduled’] Request only responses where the <code>status</code> would equal the given value.</td>
     </tr>
 </tbody>
 </table><h3 id="response-1">Response</h3>
@@ -116,6 +116,7 @@
 
 <pre><code class="language-javascript"><span class="p">[</span>
   <span class="p">{</span>
+    <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
     <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"OQ-45"</span><span class="p">,</span>
     <span class="s2">"status"</span><span class="o">:</span> <span class="s2">"scheduled"</span><span class="p">,</span>
     <span class="s2">"open_from"</span><span class="o">:</span> <span class="s2">"2012-11-23T12:40:20+00:00+0200"</span><span class="p">,</span>
@@ -140,6 +141,7 @@
     <span class="p">}</span>
   <span class="p">},</span>
   <span class="p">{</span>
+    <span class="s2">"id"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
     <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"OQ-45"</span><span class="p">,</span>
     <span class="s2">"status"</span><span class="o">:</span> <span class="s2">"open"</span><span class="p">,</span>
     <span class="s2">"open_from"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -164,6 +166,32 @@
     <span class="p">}</span>
   <span class="p">},</span>
   <span class="p">{</span>
+    <span class="s2">"id"</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"OQ-45"</span><span class="p">,</span>
+    <span class="s2">"status"</span><span class="o">:</span> <span class="s2">"aborted"</span><span class="p">,</span>
+    <span class="s2">"open_from"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"open_till"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="s2">"completer_type"</span><span class="o">:</span> <span class="s2">"parent"</span><span class="p">,</span>
+    <span class="s2">"completed_at"</span><span class="o">:</span> <span class="s2">"2012-11-20T15:40:20+00:00+0200"</span><span class="p">,</span>
+    <span class="s2">"completing_url"</span><span class="o">:</span> <span class="s2">"https://demo.roqua.nl/login?token=abcdefgh"</span><span class="p">,</span>
+    <span class="s2">"values"</span><span class="o">:</span> <span class="p">{</span>
+
+    <span class="p">},</span>
+    <span class="s2">"outcome"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"scores"</span><span class="o">:</span> <span class="p">{</span>
+
+      <span class="p">},</span>
+      <span class="s2">"action"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"actions"</span><span class="o">:</span> <span class="p">{</span>
+
+      <span class="p">},</span>
+      <span class="s2">"alarm"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"attention"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+      <span class="s2">"complete"</span><span class="o">:</span> <span class="kc">null</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="s2">"id"</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
     <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"OQ-45"</span><span class="p">,</span>
     <span class="s2">"status"</span><span class="o">:</span> <span class="s2">"completed"</span><span class="p">,</span>
     <span class="s2">"open_from"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -286,6 +314,11 @@
     </tr></thead>
 <tbody>
 <tr>
+<td><code>id</code></td>
+      <td><code>integer</code></td>
+      <td>Id uniquely identifying the reponse record.</td>
+    </tr>
+<tr>
 <td><code>name</code></td>
       <td><code>string</code></td>
       <td>The name of the response.</td>
@@ -293,7 +326,7 @@
 <tr>
 <td><code>status</code></td>
       <td><code>string</code></td>
-      <td>One of the following values:<br>* <code>scheduled</code> - This response is scheduled to be completed at a later time. Cannot be completed right now, and visiting its URL will not result in this response being presented. See <code>open_from</code> and <code>open_till</code> attributes for the time window when this response will be <code>open</code>.<br>* <code>open</code> - This response is completable right now.<br> * <code>completed</code> - This response has been completed.</td>
+      <td>One of the following values:<br>* <code>scheduled</code> - This response is scheduled to be completed at a later time. Cannot be completed right now, and visiting its URL will not result in this response being presented. See <code>open_from</code> and <code>open_till</code> attributes for the time window when this response will be <code>open</code>.<br>* <code>open</code> - This response is completable right now.<br> * <code>aborted</code> - Filling out the questionnaire has been aborted.<br> * <code>completed</code> - This response has been completed.</td>
     </tr>
 <tr>
 <td><code>open_from</code></td>
