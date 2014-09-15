@@ -118,6 +118,8 @@
   <span class="p">{</span>
     <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
     <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"OQ-45"</span><span class="p">,</span>
+    <span class="s2">"questionnaire_name"</span><span class="o">:</span> <span class="s2">"OQ-45"</span><span class="p">,</span>
+    <span class="s2">"questionnaire_key"</span><span class="o">:</span> <span class="s2">"oq45"</span><span class="p">,</span>
     <span class="s2">"status"</span><span class="o">:</span> <span class="s2">"scheduled"</span><span class="p">,</span>
     <span class="s2">"open_from"</span><span class="o">:</span> <span class="s2">"2012-11-23T12:40:20+00:00+0200"</span><span class="p">,</span>
     <span class="s2">"open_till"</span><span class="o">:</span> <span class="s2">"2012-11-25T12:40:20+00:00+0200"</span><span class="p">,</span>
@@ -143,6 +145,8 @@
   <span class="p">{</span>
     <span class="s2">"id"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
     <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"OQ-45"</span><span class="p">,</span>
+    <span class="s2">"questionnaire_name"</span><span class="o">:</span> <span class="s2">"OQ-45"</span><span class="p">,</span>
+    <span class="s2">"questionnaire_key"</span><span class="o">:</span> <span class="s2">"oq45"</span><span class="p">,</span>
     <span class="s2">"status"</span><span class="o">:</span> <span class="s2">"open"</span><span class="p">,</span>
     <span class="s2">"open_from"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="s2">"open_till"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -168,6 +172,8 @@
   <span class="p">{</span>
     <span class="s2">"id"</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
     <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"OQ-45"</span><span class="p">,</span>
+    <span class="s2">"questionnaire_name"</span><span class="o">:</span> <span class="s2">"OQ-45"</span><span class="p">,</span>
+    <span class="s2">"questionnaire_key"</span><span class="o">:</span> <span class="s2">"oq45"</span><span class="p">,</span>
     <span class="s2">"status"</span><span class="o">:</span> <span class="s2">"aborted"</span><span class="p">,</span>
     <span class="s2">"open_from"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="s2">"open_till"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -193,6 +199,8 @@
   <span class="p">{</span>
     <span class="s2">"id"</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span>
     <span class="s2">"name"</span><span class="o">:</span> <span class="s2">"OQ-45"</span><span class="p">,</span>
+    <span class="s2">"questionnaire_name"</span><span class="o">:</span> <span class="s2">"OQ-45"</span><span class="p">,</span>
+    <span class="s2">"questionnaire_key"</span><span class="o">:</span> <span class="s2">"oq45"</span><span class="p">,</span>
     <span class="s2">"status"</span><span class="o">:</span> <span class="s2">"completed"</span><span class="p">,</span>
     <span class="s2">"open_from"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="s2">"open_till"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
@@ -321,7 +329,18 @@
 <tr>
 <td><code>name</code></td>
       <td><code>string</code></td>
-      <td>The name of the response.</td>
+      <td>The name of the response. <strong>Warning, this field is deprecated, use questionnaire_name instead</strong>
+</td>
+    </tr>
+<tr>
+<td><code>questionnaire_name</code></td>
+      <td><code>string</code></td>
+      <td>The name of the questionnaire that was filled out.</td>
+    </tr>
+<tr>
+<td><code>questionnaire_key</code></td>
+      <td><code>string</code></td>
+      <td>Key uniquely identifying the questionnaire that was filled out.</td>
     </tr>
 <tr>
 <td><code>status</code></td>
