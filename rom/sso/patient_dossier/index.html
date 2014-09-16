@@ -49,7 +49,8 @@
     <div class="content">
       <ul id="markdown-toc">
 <li><a href="#sso-url">SSO URL</a></li>
-  <li><a href="#parameters">Parameters</a></li>
+  <li><a href="#required-parameters">Required parameters</a></li>
+  <li><a href="#optional-parameters">Optional parameters</a></li>
   <li><a href="#example-implementation-both-client-and-server">Example implementation, both client and server</a></li>
   <li><a href="#todo">TODO</a></li>
   <li><a href="#references">References</a></li>
@@ -69,7 +70,7 @@ window or frame to navigate to:</p>
 <pre><code>https://epd.:ggzname.roqua.nl/epd/session/create
 </code></pre>
 
-<h2 id="parameters">Parameters</h2>
+<h2 id="required-parameters">Required parameters</h2>
 
 <p>To this URL, you must add a number of query parameters (i.e. <code>?key=value&amp;foo=bar&amp;baz=quux</code>). These parameters are used for specifying the user to be logged in, the dossier to be shown, and authenticating that the request is signed by a valid authority.</p>
 
@@ -131,6 +132,16 @@ window or frame to navigate to:</p>
 </code></pre>
 
 <p>Given a secret <code>very-secret</code>, this message would result in the following HMAC: <code>7ada2feaa64e7af5665b5ad92530f64983fdb3c0</code>.</p>
+
+<h2 id="optional-parameters">Optional parameters</h2>
+
+<p>In addition to the list of required parameters above, we also support the following list of optional parameters. Remember that it’s fine to send parameters we don’t have listed in this document, they will be used in the validation of the HMAC, but will be ignored otherwise.</p>
+
+<h3 id="userfirstname---firstname-of-the-professional">
+<code>user_firstname</code> - Firstname of the professional</h3>
+
+<h3 id="userlastname---lastname-of-the-professional">
+<code>user_lastname</code> - Lastname of the professional</h3>
 
 <h2 id="example-implementation-both-client-and-server">Example implementation, both client and server</h2>
 
