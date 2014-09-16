@@ -71,15 +71,19 @@
 <tr>
 <td><code>status</code></td>
       <td><code>string</code></td>
-      <td>
-<em>Optional.</em> Possible values:<br> * <code>back</code> - user requested to browse backwards to the previous questionnaire.<br> * <code>close</code> - user requested to abort their fill out session and stop completing more questionnaires.<br> * <code>authorization_error</code> - something went wrong while authorizing the user against the requested URL (e.g. the answer id in the session was incorrect, or the HMAC did not validate).<br>
+      <td>Possible values:<br> * <code>updated</code> - form was completed and answer was saved<br> * <code>error</code> - something went wrong while authorizing the user against the requested URL (e.g. the answer id in the session was incorrect, or the HMAC did not validate).<br>
 </td>
     </tr>
 <tr>
-<td><code>expired_session</code></td>
+<td><code>go</code></td>
       <td><code>string</code></td>
-      <td>
-<em>Optional.</em> Present and set to <code>true</code> if the timestamp in the requested URL has expired.</td>
+      <td>If <code>status</code> is <code>updated</code>, this parameter represents the desired direction to move within the fill out session. Possible values:<br> * <code>back</code> - user requested to browse backwards to the previous questionnaire.<br> * <code>stop</code> - user requested to abort their fill out session and stop completing more questionnaires.<br> * <code>next</code> - Default, user submitted using the “klaar” button.<br>
+</td>
+    </tr>
+<tr>
+<td><code>error</code></td>
+      <td><code>string</code></td>
+      <td>If <code>status</code> is <code>error</code>, this parameter identifies the specific error that occured. Specific examples:<br> * <code>Quby::TimestampExpiredError</code> if the timestamp in the requested URL has expired.<br> * <code>Quby::InvalidAuthorizationError</code> if the answer ID in the session did not match with the answer ID requested.</td>
     </tr>
 </tbody>
 </table>
