@@ -256,6 +256,7 @@ Name | Type | Description
 `questionnaire_key` | `string`  | [Required] Key uniquely identifying the questionnaire in the ROM application
 `answer_data`       | `hash`    | [Required] Hash storing the answered option key for every question key
 `filled_out_at`     | `integer` | The Unix time when the questionnaire was filled out
+`response_id`       | `integer` | Id of the pending response the answer data should be stored in. A new response is created when no matching pending response is found.
 `respondent`        | `string`  | ['patient'(default) \| 'parent' \| 'second_parent' \| 'teacher' \| 'caregiver'] String identifying the respondent which filled out the questionnaire
 
 ### Response
