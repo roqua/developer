@@ -164,12 +164,30 @@
 
 <h3 id="when-no-protocol-exists-with-the-protocolkey-provided">When no protocol exists with the <code>protocol_key</code> provided</h3>
 
+<pre class="headers no-response"><code>Status: 404 Not Found</code></pre>
+
+<pre><code>(no response body)</code></pre>
+
+<h3 id="when-a-flag-does-not-exist-within-the-protocol">When a flag does not exist within the protocol</h3>
+
 <pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
 
 <pre><code class="language-javascript"><span class="p">{</span>
   <span class="s2">"errors"</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">"protocol_key"</span><span class="o">:</span> <span class="p">[</span>
-      <span class="s2">"protocol_not_found_by_key"</span>
+    <span class="s2">"base"</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s2">"flag_does_not_exist"</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+
+<h3 id="when-a-flag-is-set-to-an-invalid-value">When a flag is set to an invalid value</h3>
+
+<pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
+
+<pre><code class="language-javascript"><span class="p">{</span>
+  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"base"</span><span class="o">:</span> <span class="p">[</span>
+      <span class="s2">"flag_value_invalid"</span>
     <span class="p">]</span>
   <span class="p">}</span>
 <span class="p">}</span></code></pre>
