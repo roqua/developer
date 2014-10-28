@@ -147,6 +147,7 @@
     <span class="s2">"open_from"</span><span class="o">:</span> <span class="s2">"2012-11-23T12:40:20+00:00+0200"</span><span class="p">,</span>
     <span class="s2">"open_till"</span><span class="o">:</span> <span class="s2">"2012-11-25T12:40:20+00:00+0200"</span><span class="p">,</span>
     <span class="s2">"completer_type"</span><span class="o">:</span> <span class="s2">"patient"</span><span class="p">,</span>
+    <span class="s2">"started_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="s2">"completed_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="s2">"completing_url"</span><span class="o">:</span> <span class="s2">"https://demo.roqua.nl/login?token=abcdefgh"</span><span class="p">,</span>
     <span class="s2">"values"</span><span class="o">:</span> <span class="p">{</span>
@@ -174,6 +175,7 @@
     <span class="s2">"open_from"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="s2">"open_till"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="s2">"completer_type"</span><span class="o">:</span> <span class="s2">"parent"</span><span class="p">,</span>
+    <span class="s2">"started_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="s2">"completed_at"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="s2">"completing_url"</span><span class="o">:</span> <span class="s2">"https://demo.roqua.nl/login?token=abcdefgh"</span><span class="p">,</span>
     <span class="s2">"values"</span><span class="o">:</span> <span class="p">{</span>
@@ -201,6 +203,7 @@
     <span class="s2">"open_from"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="s2">"open_till"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="s2">"completer_type"</span><span class="o">:</span> <span class="s2">"parent"</span><span class="p">,</span>
+    <span class="s2">"started_at"</span><span class="o">:</span> <span class="s2">"2012-11-20T15:30:20+00:00+0200"</span><span class="p">,</span>
     <span class="s2">"completed_at"</span><span class="o">:</span> <span class="s2">"2012-11-20T15:40:20+00:00+0200"</span><span class="p">,</span>
     <span class="s2">"completing_url"</span><span class="o">:</span> <span class="s2">"https://demo.roqua.nl/login?token=abcdefgh"</span><span class="p">,</span>
     <span class="s2">"values"</span><span class="o">:</span> <span class="p">{</span>
@@ -228,6 +231,7 @@
     <span class="s2">"open_from"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="s2">"open_till"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="s2">"completer_type"</span><span class="o">:</span> <span class="s2">"patient"</span><span class="p">,</span>
+    <span class="s2">"started_at"</span><span class="o">:</span> <span class="s2">"2012-11-20T15:30:20+00:00+0200"</span><span class="p">,</span>
     <span class="s2">"completed_at"</span><span class="o">:</span> <span class="s2">"2012-11-20T15:40:20+00:00+0200"</span><span class="p">,</span>
     <span class="s2">"completing_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="s2">"values"</span><span class="o">:</span> <span class="p">{</span>
@@ -386,6 +390,11 @@
       <td>Describes for whom this response is intended. Can be <code>patient</code>, <code>professional</code>, <code>parent</code>, <code>second_parent</code> or <code>teacher</code>. More types might be added later, therefore it is advised that API consumers select the desired types, and not reject the undesired types.</td>
     </tr>
 <tr>
+<td><code>started_at</code></td>
+      <td><code>string</code></td>
+      <td>An ISO 8601 formatted string that indicates when the response was started being filled out, or <code>null</code> if this data is not available.</td>
+    </tr>
+<tr>
 <td><code>completed_at</code></td>
       <td><code>string</code></td>
       <td>An ISO 8601 formatted string that indicates when the response was completed, or <code>null</code> if this response is not yet completed.</td>
@@ -468,6 +477,11 @@
       <td>[Required] Hash storing the answered option key for every question key</td>
     </tr>
 <tr>
+<td><code>started_at</code></td>
+      <td><code>integer</code></td>
+      <td>The Unix time when the questionnaire was started being filled out (greater or equal to 31 december 1999)</td>
+    </tr>
+<tr>
 <td><code>filled_out_at</code></td>
       <td><code>integer</code></td>
       <td>The Unix time when the questionnaire was filled out (greater or equal to 31 december 1999)</td>
@@ -493,6 +507,7 @@
   <span class="s2">"open_from"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
   <span class="s2">"open_till"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
   <span class="s2">"completer_type"</span><span class="o">:</span> <span class="s2">"patient"</span><span class="p">,</span>
+  <span class="s2">"started_at"</span><span class="o">:</span> <span class="s2">"2012-11-20T15:30:20+00:00+0200"</span><span class="p">,</span>
   <span class="s2">"completed_at"</span><span class="o">:</span> <span class="s2">"2012-11-20T15:40:20+00:00+0200"</span><span class="p">,</span>
   <span class="s2">"completing_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
   <span class="s2">"values"</span><span class="o">:</span> <span class="p">{</span>
@@ -634,6 +649,11 @@ The <code>:id</code> in the path is the id of the pending response to store the 
       <td>[Required] Hash storing the answered option key for every question key</td>
     </tr>
 <tr>
+<td><code>started_at</code></td>
+      <td><code>integer</code></td>
+      <td>The Unix time when the questionnaire was started being filled out (greater or equal to 31 december 1999)</td>
+    </tr>
+<tr>
 <td><code>filled_out_at</code></td>
       <td><code>integer</code></td>
       <td>The Unix time when the questionnaire was filled out (greater or equal to 31 december 1999)</td>
@@ -654,6 +674,7 @@ The <code>:id</code> in the path is the id of the pending response to store the 
   <span class="s2">"open_from"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
   <span class="s2">"open_till"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
   <span class="s2">"completer_type"</span><span class="o">:</span> <span class="s2">"patient"</span><span class="p">,</span>
+  <span class="s2">"started_at"</span><span class="o">:</span> <span class="s2">"2012-11-20T15:30:20+00:00+0200"</span><span class="p">,</span>
   <span class="s2">"completed_at"</span><span class="o">:</span> <span class="s2">"2012-11-20T15:40:20+00:00+0200"</span><span class="p">,</span>
   <span class="s2">"completing_url"</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
   <span class="s2">"values"</span><span class="o">:</span> <span class="p">{</span>
