@@ -84,7 +84,13 @@
     <span class="s2">"start_at"</span><span class="o">:</span> <span class="s2">"2014-02-14T15:43:24+01:00"</span><span class="p">,</span>
     <span class="s2">"stop_at"</span><span class="o">:</span> <span class="s2">"2014-03-14T15:43:24+01:00"</span><span class="p">,</span>
     <span class="s2">"protocol_key"</span><span class="o">:</span> <span class="s2">"rom"</span><span class="p">,</span>
-    <span class="s2">"protocol_name"</span><span class="o">:</span> <span class="s2">"ROM"</span>
+    <span class="s2">"protocol_name"</span><span class="o">:</span> <span class="s2">"ROM"</span><span class="p">,</span>
+    <span class="s2">"flags"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"dagboek_roker"</span><span class="o">:</span> <span class="kc">false</span>
+    <span class="p">},</span>
+    <span class="s2">"textvars"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"dagboek_hoofdprobleem"</span><span class="o">:</span> <span class="s2">"Slaaptekort"</span>
+    <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">]</span></code></pre>
 
@@ -136,6 +142,11 @@
       <td><code>hash</code></td>
       <td>Boolean flags that are passed in when a questionnaire is being filled out.</td>
     </tr>
+<tr>
+<td><code>textvars</code></td>
+      <td><code>hash</code></td>
+      <td>String textvars that are passed in when a questionnaire is being filled out.</td>
+    </tr>
 </tbody>
 </table><h3 id="success-1">Success</h3>
 
@@ -147,7 +158,13 @@
   <span class="s2">"start_at"</span><span class="o">:</span> <span class="s2">"2014-02-14T15:43:24+01:00"</span><span class="p">,</span>
   <span class="s2">"stop_at"</span><span class="o">:</span> <span class="s2">"2014-03-14T15:43:24+01:00"</span><span class="p">,</span>
   <span class="s2">"protocol_key"</span><span class="o">:</span> <span class="s2">"rom"</span><span class="p">,</span>
-  <span class="s2">"protocol_name"</span><span class="o">:</span> <span class="s2">"ROM"</span>
+  <span class="s2">"protocol_name"</span><span class="o">:</span> <span class="s2">"ROM"</span><span class="p">,</span>
+  <span class="s2">"flags"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"dagboek_roker"</span><span class="o">:</span> <span class="kc">false</span>
+  <span class="p">},</span>
+  <span class="s2">"textvars"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"dagboek_hoofdprobleem"</span><span class="o">:</span> <span class="s2">"Slaaptekort"</span>
+  <span class="p">}</span>
 <span class="p">}</span></code></pre>
 
 <h3 id="when-basic-http-authentication-fails-1">When basic HTTP authentication fails</h3>
