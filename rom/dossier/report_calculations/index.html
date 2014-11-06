@@ -49,15 +49,15 @@
   <div id="wrapper">
     <div class="content">
       <ul id="markdown-toc">
-<li><a href="#calculations-over-multiple-answers">Calculations over multiple answers.</a></li>
-</ul><h2 id="calculations-over-multiple-answers">Calculations over multiple answers.</h2>
+<li><a href="#calculations-over-multiple-responses">Calculations over multiple responses.</a></li>
+</ul><h2 id="calculations-over-multiple-responses">Calculations over multiple responses.</h2>
 
-<h3 id="calculate-over-specific-answers">Calculate over specific answers.</h3>
+<h3 id="calculate-over-specific-responses">Calculate over specific responses.</h3>
 
-<pre><code>GET /api/v1/dossiers/:dossier_id/report_calculations?calculator=test&amp;answer_ids[]=1&amp;answer_ids[]=6
+<pre><code>GET /api/v1/dossiers/:dossier_id/report_calculations?calculator=test&amp;response_ids[]=1&amp;response_ids[]=6
 </code></pre>
 
-<h3 id="calculate-over-answers-defined-by-filters">Calculate over answers defined by filters</h3>
+<h3 id="calculate-over-responses-defined-by-filters">Calculate over responses defined by filters</h3>
 
 <pre><code>GET /api/v1/dossiers/:dossier_id/report_calculations?calculator=test&amp;filters[questionnaire_keys][]=rand361
 </code></pre>
@@ -84,14 +84,14 @@
 <strong>Required</strong>. Name of ReportCalculator.</td>
     </tr>
 <tr>
-<td><code>answer_ids</code></td>
+<td><code>response_ids</code></td>
       <td><code>array of int</code></td>
-      <td>specific answers to do the calculation over.</td>
+      <td>specific responses to do the calculation over.</td>
     </tr>
 <tr>
 <td><code>filters</code></td>
       <td><code>hash</code></td>
-      <td>See below. Required if no answers_ids are given.</td>
+      <td>See below. Required if no responses_ids are given.</td>
     </tr>
 </tbody>
 </table><h4 id="filter-attributes">filter attributes:</h4>
@@ -107,17 +107,17 @@
 <td><code>questionnaire_keys</code></td>
       <td><code>array of string</code></td>
       <td>
-<strong>Required</strong>. Keys of the questionnaires we want answers from.</td>
+<strong>Required</strong>. Keys of the questionnaires we want responses from.</td>
     </tr>
 <tr>
 <td><code>completed_after</code></td>
       <td><code>integer</code></td>
-      <td>Unix timestamp search for answers after this time</td>
+      <td>Unix timestamp search for responses after this time</td>
     </tr>
 <tr>
 <td><code>completed_before</code></td>
       <td><code>integer</code></td>
-      <td>Unix timestamp search for answers before this time</td>
+      <td>Unix timestamp search for responses before this time</td>
     </tr>
 </tbody>
 </table><h3 id="success">Success</h3>
@@ -128,7 +128,7 @@
   <span class="s2">"results"</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">"key"</span><span class="o">:</span> <span class="s2">"value"</span>
   <span class="p">},</span>
-  <span class="s2">"answer_ids"</span><span class="o">:</span> <span class="p">[</span>
+  <span class="s2">"response_ids"</span><span class="o">:</span> <span class="p">[</span>
     <span class="mi">1</span><span class="p">,</span>
     <span class="mi">6</span>
   <span class="p">]</span>
