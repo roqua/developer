@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Language" content="en-us" />
   <meta http-equiv="imagetoolbar" content="false" />
   <meta name="MSSmartTagsPreventParsing" content="true" />
-  <title>Overview | RoQua Developer Docs</title>
+  <title>Dossier Groups | RoQua Developer Docs</title>
   <link href="/developer/assets/css/reset.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/960.css" rel="stylesheet" type="text/css" />
   <link href="/developer/assets/css/uv_active4d.css" rel="stylesheet" type="text/css" />
@@ -39,7 +39,7 @@
   <div class="sub-nav">
     <h2>
       <strong>Core</strong>
-      : Overview
+      : Dossier Groups
       <span class="status status-draft">
           draft
           </span>
@@ -48,23 +48,47 @@
 
   <div id="wrapper">
     <div class="content">
-      <h1 id="general-flow">General flow</h1>
+      <h2 id="export-all-information-under-a-dossier-group">Export all information under a dossier group</h2>
 
-<h2 id="validation-errors">validation errors</h2>
+<p>This call will return a serialized version of the entire tree of objects under a given dossier group. Note that this might take a very long time if the group is sufficiently large. We plan on adding an asynchronous version of this API later.</p>
 
-<p>When trying to create an object and a validation fails (e.g. an email doesn’t have an @) a status of 422 (unprocessable_entity) is returned with a list of errors.</p>
+<pre><code>POST /api/v1/dossier_groups/exports
+</code></pre>
 
-<p>The errors are keywords, so you can use your own translation files. For a list see the <a href="http://rubydoc.info/gems/roqua-core-api/file/config/locales/validation_errors.yml">translation file included in the ruby gem</a></p>
+<h3 id="response">Response</h3>
 
-<pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
+<pre class="headers"><code>Status: 200 OK</code></pre>
 
 <pre><code class="language-javascript"><span class="p">{</span>
-  <span class="s2">"errors"</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">"email"</span><span class="o">:</span> <span class="p">[</span>
-      <span class="s2">"invalid_email"</span>
-    <span class="p">],</span>
-    <span class="s2">"birthdate"</span><span class="o">:</span> <span class="p">[</span>
-      <span class="s2">"invalid_date"</span>
+  <span class="s2">"dossier_group_export"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"dossiers"</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">"id"</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"external_identifier"</span><span class="o">:</span> <span class="s2">"123"</span><span class="p">,</span>
+        <span class="s2">"people"</span><span class="o">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="s2">"id"</span><span class="o">:</span> <span class="s2">"uuid"</span><span class="p">,</span>
+            <span class="s2">"role"</span><span class="o">:</span> <span class="s2">"patient"</span><span class="p">,</span>
+            <span class="s2">"firstname"</span><span class="o">:</span> <span class="s2">"John"</span><span class="p">,</span>
+            <span class="s2">"lastname"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
+            <span class="s2">"etc"</span><span class="o">:</span> <span class="s2">"etc"</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+            <span class="s2">"id"</span><span class="o">:</span> <span class="s2">"uuid"</span><span class="p">,</span>
+            <span class="s2">"role"</span><span class="o">:</span> <span class="s2">"parent"</span><span class="p">,</span>
+            <span class="s2">"firstname"</span><span class="o">:</span> <span class="s2">"Jake"</span><span class="p">,</span>
+            <span class="s2">"lastname"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
+            <span class="s2">"etc"</span><span class="o">:</span> <span class="s2">"etc"</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+            <span class="s2">"id"</span><span class="o">:</span> <span class="s2">"uuid"</span><span class="p">,</span>
+            <span class="s2">"role"</span><span class="o">:</span> <span class="s2">"parent"</span><span class="p">,</span>
+            <span class="s2">"firstname"</span><span class="o">:</span> <span class="s2">"Mary"</span><span class="p">,</span>
+            <span class="s2">"lastname"</span><span class="o">:</span> <span class="s2">"Doe"</span><span class="p">,</span>
+            <span class="s2">"etc"</span><span class="o">:</span> <span class="s2">"etc"</span>
+          <span class="p">}</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
     <span class="p">]</span>
   <span class="p">}</span>
 <span class="p">}</span></code></pre>
