@@ -14,7 +14,9 @@
   <link href="//cdnjs.cloudflare.com/ajax/libs/octicons/2.1.2/octicons.min.css" media="screen" rel="stylesheet" type="text/css">
   <script src="/developer/assets/js/jquery.js" type="text/javascript"></script>
   <script src="/developer/assets/js/documentation.js" type="text/javascript"></script>
+  <link href="/assets/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
 </head>
+
 
 
 
@@ -48,7 +50,7 @@
 
   <div id="wrapper">
     <div class="content">
-      <p>The login for a patient (or other respondents for a dossier) is normally done by entering a token which the person has received by e-mail or snailmail. It’s also possible to open the login URL with this token prefilled as a query parameter, in which case the login will happen automatically and the person will be presented the first pending questionnaire immediately.</p>
+      <p>The login for a patient (or other respondents for a dossier) is done by entering a token which the person has received by e-mail or snailmail. It’s also possible to open the login URL with this token prefilled as a query parameter, in which case the login will happen automatically and the person will be presented the first pending questionnaire immediately.</p>
 
 <h2 id="sso-url">SSO URL</h2>
 
@@ -81,9 +83,14 @@ window or frame to navigate to:</p>
       <td>If given, when all pending questionnaires have been answered, thus completing the fill out session, RoQua will redirect to this URL instead of showing a default thank-you screen.</td>
     </tr>
 <tr>
+<td><code>progress_url</code></td>
+      <td><code>string</code></td>
+      <td>URL of your <a href="/developer/rom/dossier/fill_out_sessions/#progress-page">progress page</a>.</td>
+    </tr>
+<tr>
 <td><code>stylesheet</code></td>
       <td><code>string</code></td>
-      <td>If given, this CSS URL will be loaded after our built-in stylesheets to allow some visual customization of the look and feel.</td>
+      <td>When given, this CSS URL will be loaded after our built-in stylesheets to allow some customization of the look and feel.</td>
     </tr>
 </tbody>
 </table>
@@ -112,9 +119,9 @@ window or frame to navigate to:</p>
                 <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/rom/sso/">Single Sign On</a></h3>
                 <ul class="js-guides">
                   
-                    <li><a href="/developer/rom/sso/completing_questionnaires/">Single Sign-On for Respondents</a></li>
-                  
                     <li><a href="/developer/rom/sso/patient_dossier/">Single Sign-On for Professionals</a></li>
+                  
+                    <li><a href="/developer/rom/sso/completing_questionnaires/">Single Sign-On for Respondents</a></li>
                   
                 </ul>
               </li>
@@ -123,9 +130,9 @@ window or frame to navigate to:</p>
                 <h3><a href="#" class="js-expand-btn collapsed arrow-btn" data-proofer-ignore></a><a href="/developer/rom/hl7/">HL7</a></h3>
                 <ul class="js-guides">
                   
-                    <li><a href="/developer/rom/hl7/a19/">HL7 2.4 QRY^A19</a></li>
-                  
                     <li><a href="/developer/rom/hl7/oru/">HL7 2.4 ORU^R01</a></li>
+                  
+                    <li><a href="/developer/rom/hl7/a19/">HL7 2.4 QRY^A19</a></li>
                   
                 </ul>
               </li>
@@ -149,9 +156,9 @@ window or frame to navigate to:</p>
                   
                     <li><a href="/developer/rom/dossier/dossiers/">Dossiers</a></li>
                   
-                    <li><a href="/developer/rom/dossier/fill_out_requests/">Fill out requests</a></li>
+                    <li><a href="/developer/rom/dossier/fill_out_requests/">Fill Out Requests</a></li>
                   
-                    <li><a href="/developer/rom/dossier/fill_out_sessions/">FillOut Sessions</a></li>
+                    <li><a href="/developer/rom/dossier/fill_out_sessions/">Fill Out Sessions</a></li>
                   
                     <li><a href="/developer/rom/dossier/protocol_subscriptions/">Protocol Subscriptions</a></li>
                   
