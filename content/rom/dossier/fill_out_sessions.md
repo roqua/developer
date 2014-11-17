@@ -19,7 +19,8 @@ Name | Type | Description
 `questionnaire_keys` | `array`   | Array of keys uniquely identifying the questionnaires to be filled out.
 `response_ids`       | `array`   | Array containing ids of aborted responses for which filling out has to be resumed.
 `return_to`          | `string`  | **Required**. URL to redirect to after the questionnaire has been filled out.
-`progress_url`       | `string`  | URL of your progress page (see the progress page section below)
+`progress_url`       | `string`  | URL of your progress page (see the progress page section below).
+`stylesheet`         | `string`  | When given, this CSS URL will be loaded after our built-in stylesheets to allow some customization of the look and feel.
 
 When an array of questionnaire keys is provided, a set of blank questionnaires will be filled out. When an array of
 ids corresponding with aborted responses is provided, filling out will be resumed for these responses.
@@ -63,9 +64,10 @@ ids corresponding with aborted responses is provided, filling out will be resume
 <%= headers 422 %>
 <%= json errors: {'return_url' => ['missing']} %>
 
-### Progress page
 
-By providing a `progress_url` when creating a fill_out session, patients are redirected to your custom progress page
+## Progress page
+
+By providing a `progress_url` when creating a fill_out session, respondents are redirected to your custom progress page
 before filling out and between every questionnaire. We provide you with the following url parameters:
 
 - `continue_url` : a url to fill out the next questionnaire
@@ -76,5 +78,5 @@ before filling out and between every questionnaire. We provide you with the foll
 De actual names of these questionnaires can be queries through the
 [questionnaires API endpoint](http://roqua.github.io/developer/rom/global/questionnaires/).
 
-These url parameters can be used on your progress page to show the patient's progress and provide links for continuing
-with filling out or aborting the fill out session
+These url parameters can be used on your progress page to show the respondent's progress and provide links for
+continuing filling out or aborting the fill out session.
