@@ -56,6 +56,7 @@
   <li><a href="#stap-2-protocol-subscription-starten">Stap 2: protocol subscription starten</a></li>
   <li><a href="#stap-3-ingevulde-data-terugsturen">Stap 3: Ingevulde data terugsturen</a></li>
   <li><a href="#stap-3a-gemiste-data-melden">Stap 3a: Gemiste data melden</a></li>
+  <li><a href="#stap-4-resultaten-berekenen-en-ophalen">Stap 4: Resultaten berekenen en ophalen</a></li>
   <li><a href="#af-en-toe-vragenlijst-definitie-ophalen">Af en toe: Vragenlijst-definitie ophalen</a></li>
 </ul><h2 id="configuratie">Configuratie</h2>
 
@@ -187,6 +188,48 @@ ROQUA_DOSSIER_GROUP_ID
 <h2 id="stap-3a-gemiste-data-melden">Stap 3a: Gemiste data melden</h2>
 
 <p>Deze API wordt nog gemaakt door RoQua. Zal gaan lijken op de vorige, maar dan met andere parameters (iets als <code>"non_response": true</code> in plaats van <code>answer_data</code> wellicht).</p>
+
+<h2 id="stap-4-resultaten-berekenen-en-ophalen">Stap 4: Resultaten berekenen en ophalen</h2>
+<p>Base url = https://leefplezier.nu
+Prefix = /api/v1</p>
+
+<p>The API only supports GET requests and uses basic auth.</p>
+
+<h3 id="routes">Routes</h3>
+
+<p>GET <code>/dossier/{:dossier_id}/protocol_subscriptions/{:protocol_subscription_id}/calculate</code></p>
+
+<ul>
+<li>This route should be called by the Lifely backend after they submit the final results to RoQua, i.e., when they decide that all missing measurements are actually missing.</li>
+  <li>Returns status 200.</li>
+</ul><p>GET <code>/dossier/{:dossier_id}/protocol_subscriptions/{:protocol_subscription_id}/results/welbevinden.svg</code></p>
+
+<ul>
+<li>Returns 200 status code with SVG image if the results are ready.</li>
+  <li>Returns 202 if the results have not yet been calculated.</li>
+  <li>Returns 204 if user has not enough measurements for feedback (&lt;25%).</li>
+</ul><p>GET <code>/dossier/{:dossier_id}/protocol_subscriptions/{:protocol_subscription_id}/results/plezierigheid.svg</code></p>
+
+<ul>
+<li>Returns 200 status code with SVG image if the results are ready.</li>
+  <li>Returns 202 if the results have not yet been calculated.</li>
+  <li>Returns 204 if user has not enough measurements for feedback (&lt;25%).</li>
+</ul><p>GET <code>/dossier/{:dossier_id}/protocol_subscriptions/{:protocol_subscription_id}/results/voorspellend_netwerk.svg</code></p>
+
+<ul>
+<li>Returns 200 status code with SVG image if the results are ready.</li>
+  <li>Returns 202 if the results have not yet been calculated.</li>
+  <li>Returns 204 if user has not enough measurements for a voorspellend netwerk (&lt;75%).</li>
+  <li>Returns 404 if we were not able to find a network in Autovar.</li>
+</ul><h3 id="example-use">Example use</h3>
+
+<p><strong>URL</strong>
+<code>https://lifely_staging:e08fb668f13d75491d1c528ef5be256f2095d92b0eaa67969e17dc2e09ebb27de562c852b3cb0ef00aa8cc5aad91@staging.leefplezier.nu/leefplezier/api/v1/dossier/1213/protocol_subscriptions/1/results/welbevinden.svg</code></p>
+
+<p><strong>CURL</strong>
+<code>bash
+curl -X GET --user lifely_staging:e08fb668f13d75491d1c528ef5be256f2095d92b0eaa67969e17dc2e09ebb27de562c852b3cb0ef00aa8cc5aad91 https://staging.leefplezier.nu/leefplezier/api/v1/dossier/1213/protocol_subscriptions/1/results/welbevinden.svg
+</code></p>
 
 <h2 id="af-en-toe-vragenlijst-definitie-ophalen">Af en toe: Vragenlijst-definitie ophalen</h2>
 
