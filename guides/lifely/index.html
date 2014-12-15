@@ -223,14 +223,14 @@ Prefix = /api/v1</p>
 <li>Returns 200 status code with SVG image if the results are ready.</li>
   <li>Returns 202 if the results have not yet been calculated.</li>
   <li>Returns 204 if user has not enough measurements for a voorspellend netwerk (&lt;75%).</li>
-  <li>Returns 404 if we were not able to find a network in Autovar if the <code>calculate</code> route has not previously been called for this dossier_id/protocol_subscription_id.</li>
+  <li>Returns 404 if we were not able to find a network in Autovar, or if the <code>calculate</code> route has not previously been called for this dossier_id/protocol_subscription_id.</li>
 </ul><p>GET <code>/dossier/{:dossier_id}/protocol_subscriptions/{:protocol_subscription_id}/results/top_networks.json</code></p>
 
 <ul>
 <li>Returns 200 status code with a JSON array if the results are ready.</li>
   <li>Returns 202 if the results have not yet been calculated.</li>
   <li>Returns 204 if user has not enough measurements for netwerk calculations (&lt;75%).</li>
-  <li>Returns 404 if we were not able to find a network in Autovar if the <code>calculate</code> route has not previously been called for this dossier_id/protocol_subscription_id.</li>
+  <li>Returns 404 if we were not able to find a network in Autovar, or if the <code>calculate</code> route has not previously been called for this dossier_id/protocol_subscription_id.</li>
 </ul><h3 id="example-use">Example use</h3>
 
 <p><strong>URL</strong>
