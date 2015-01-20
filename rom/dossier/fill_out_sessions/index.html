@@ -126,12 +126,10 @@ ids corresponding with aborted responses is provided, filling out will be resume
 <h3 id="when-no-questionnaire-keys-or-answer-ids-are-provided">When no questionnaire keys or answer ids are provided.</h3>
 
 <pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
-
 <pre><code class="language-javascript"><span class="p">{</span>
   <span class="s2">"errors"</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">"questionnaire_keys"</span><span class="o">:</span> <span class="p">[</span>
-      <span class="s2">"missing"</span>
-    <span class="p">]</span>
+    <span class="s2">"questionnaire_keys"</span><span class="o">:</span> <span class="s2">"missing"</span><span class="p">,</span>
+    <span class="s2">"response_ids"</span><span class="o">:</span> <span class="s2">"missing"</span>
   <span class="p">}</span>
 <span class="p">}</span></code></pre>
 
@@ -150,7 +148,6 @@ ids corresponding with aborted responses is provided, filling out will be resume
 <h3 id="when-no-returnto-url-is-provided">When no <code>return_to</code> url is provided</h3>
 
 <pre class="headers"><code>Status: 422 Unprocessable Entity</code></pre>
-
 <pre><code class="language-javascript"><span class="p">{</span>
   <span class="s2">"errors"</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">"return_url"</span><span class="o">:</span> <span class="p">[</span>
