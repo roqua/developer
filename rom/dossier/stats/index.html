@@ -56,7 +56,7 @@
 
 <h2 id="stats">Stats</h2>
 
-<pre><code>GET /api/v1/dossier/:dossier_id/stats
+<pre><code>GET /api/v1/dossier/:epd_ids/stats
 </code></pre>
 
 <h3 id="parameters">Parameters</h3>
@@ -68,20 +68,64 @@
       <th>Description</th>
     </tr></thead>
 <tbody><tr>
-<td><code>dossier_id</code></td>
+<td><code>epd_ids</code></td>
       <td><code>string|array of string</code></td>
       <td>
-<strong>Required</strong>. Unique identifier for the patient which requires stats. Multiple dossier_ids are allowed and must be comma-separated, for example <code>2,35,64</code> will return stats for three dossiers.</td>
+<strong>Required</strong>. Unique identifier for the patient which requires stats. Multiple epd_ids are allowed and must be comma-separated, for example <code>1234567890,1234567891,1234567892</code> will return stats for three dossiers if they exist.</td>
     </tr></tbody>
 </table><h3 id="response">Response</h3>
 
 <pre class="headers"><code>Status: 200 OK</code></pre>
 
 <pre><code class="language-javascript"><span class="p">{</span>
-  <span class="s2">"2"</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">"answers"</span><span class="o">:</span> <span class="p">{</span>
+  <span class="s2">"1234567890"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"responses"</span><span class="o">:</span> <span class="p">{</span>
       <span class="s2">"total"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
       <span class="s2">"completed"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"aborted"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"expired"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"pending"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"scheduled"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"open"</span><span class="o">:</span> <span class="mi">10</span>
+    <span class="p">},</span>
+    <span class="s2">"invitations"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"total"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"active"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"expired"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"unexpired"</span><span class="o">:</span> <span class="mi">10</span>
+    <span class="p">},</span>
+    <span class="s2">"protocol_subscriptions"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"total"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="s2">"to_be_prepared"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="s2">"to_be_stopped"</span><span class="o">:</span> <span class="mi">0</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">"1234567891"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"responses"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"total"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="s2">"completed"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"aborted"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"expired"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"pending"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"scheduled"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"open"</span><span class="o">:</span> <span class="mi">10</span>
+    <span class="p">},</span>
+    <span class="s2">"invitations"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"total"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"active"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"expired"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+      <span class="s2">"unexpired"</span><span class="o">:</span> <span class="mi">10</span>
+    <span class="p">},</span>
+    <span class="s2">"protocol_subscriptions"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"total"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="s2">"to_be_prepared"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="s2">"to_be_stopped"</span><span class="o">:</span> <span class="mi">0</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">"1234567892"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"responses"</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"total"</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="s2">"completed"</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
       <span class="s2">"aborted"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
       <span class="s2">"expired"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
       <span class="s2">"pending"</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
