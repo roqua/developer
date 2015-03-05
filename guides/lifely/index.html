@@ -53,7 +53,8 @@
       <ul id="markdown-toc">
 <li><a href="#configuratie">Configuratie</a></li>
   <li><a href="#stap-1-dossier-aanmaken">Stap 1: dossier aanmaken</a></li>
-  <li><a href="#stap-2-protocol-subscription-starten">Stap 2: protocol subscription starten</a></li>
+  <li><a href="#stap-2a-protocol-subscription-starten">Stap 2a: protocol subscription starten</a></li>
+  <li><a href="#stap-2b-protocol-subscription-stoppen">Stap 2b: protocol subscription stoppen</a></li>
   <li><a href="#stap-3-ingevulde-data-terugsturen">Stap 3: Ingevulde data terugsturen</a></li>
   <li><a href="#stap-3a-gemiste-data-melden">Stap 3a: Gemiste data melden</a></li>
   <li><a href="#stap-4-resultaten-berekenen-en-ophalen">Stap 4: Resultaten berekenen en ophalen</a></li>
@@ -89,6 +90,8 @@ ROQUA_DOSSIER_GROUP_ID
 }
 </code></pre>
 
+<p>Als er een dossier id bestaat voor het opgevraagde espria id update Lifely alleen de birthdate, zipcode en gender. Als het dossier id nog niet bestaat sturen ze alles op wat ze van ledenpanel krijgen: firstname, lastname, initials, email, birthdate, zipcode, gender.</p>
+
 <h3 id="response">Response</h3>
 
 <pre class="headers"><code>Status: 200 OK</code></pre>
@@ -97,7 +100,7 @@ ROQUA_DOSSIER_GROUP_ID
   <span class="s2">"id"</span><span class="o">:</span> <span class="s2">"59abe42d-ad25-4273-95ef-86444705e8d3"</span>
 <span class="p">}</span></code></pre>
 
-<h2 id="stap-2-protocol-subscription-starten">Stap 2: protocol subscription starten</h2>
+<h2 id="stap-2a-protocol-subscription-starten">Stap 2a: protocol subscription starten</h2>
 
 <p>Daarna wordt er een protocol subscription gestart. Dit zorgt er voor dat er responses worden klaargezet op de volgens het protocol vastgestelde momenten. Relevante parameters hier zijn de <code>protocol_key</code> (vast gegeven) en de <code>start_at</code>. De <code>start_at</code> geeft de datum en tijd aan van de eerste ochtendmeting, als unix timestamp. In dit geval moet de tijd door Lifely worden berekend op basis van de aan de gebruiker gevraagde bedtijd.</p>
 
@@ -164,6 +167,15 @@ ROQUA_DOSSIER_GROUP_ID
   <span class="p">]</span>
 <span class="p">}</span></code></pre>
 
+<h2 id="stap-2b-protocol-subscription-stoppen">Stap 2b: protocol subscription stoppen</h2>
+
+<p>Om de protocol subscription te stoppen moet er een delete gestuurd worden naar RoQua, met daarin het <code>roqua_dossier_id</code> en het <code>protocol_subscription_id</code> van het protocol dat gestopt moet worden.</p>
+
+<h3 id="request-2">Request</h3>
+
+<pre><code>DELETE https://leefplezier.roqua.nl/api/v1/dossiers/ROQUA_DOSSIER_ID/protocol_subscriptions/ROQUA_RESPONSE_ID
+</code></pre>
+
 <h2 id="stap-3-ingevulde-data-terugsturen">Stap 3: Ingevulde data terugsturen</h2>
 
 <p>Ingevulde data die op Lifely’s servers is ontvangen kan worden teruggepost naar RoQua. Omdat deze operatie stiekem een upsert is (update OR insert if not found) moet zowel de <code>id</code> als de <code>questionnaire_key</code> van de response worden opgestuurd. De <code>questionnaire_key</code> is echter altijd <code>"leefplz_db"</code>.</p>
@@ -174,7 +186,7 @@ ROQUA_DOSSIER_GROUP_ID
 
 <p><a href="/developer/rom/dossier/responses/#update-a-response">Full API Docs</a></p>
 
-<h3 id="request-2">Request</h3>
+<h3 id="request-3">Request</h3>
 
 <pre><code>PUT https://leefplezier.roqua.nl/api/v1/dossiers/ROQUA_DOSSIER_ID/responses/ROQUA_RESPONSE_ID
 {
@@ -188,6 +200,8 @@ ROQUA_DOSSIER_GROUP_ID
 <h2 id="stap-3a-gemiste-data-melden">Stap 3a: Gemiste data melden</h2>
 
 <p>Deze API wordt nog gemaakt door RoQua. Zal gaan lijken op de vorige, maar dan met andere parameters (iets als <code>"non_response": true</code> in plaats van <code>answer_data</code> wellicht).</p>
+
+<p>Update: Nick zegt dat gemiste metingen niet worden opgestuurd naar RoQua. </p>
 
 <h2 id="stap-4-resultaten-berekenen-en-ophalen">Stap 4: Resultaten berekenen en ophalen</h2>
 <p>Base url = https://leefplezier.nu
@@ -257,7 +271,7 @@ curl https://lifely_staging:api_secret@staging.leefezier.nu/leefplezier/api/v1/d
 
 <p>Dit wordt af en toe gedaan om de vragen te syncen met onze definitie. Daarna moet telkens worden nagekeken of er geen nieuwe vraagtypes zijn opgenomen die de weergave-module van Lifely’s app niet snapt.</p>
 
-<h3 id="request-3">Request</h3>
+<h3 id="request-4">Request</h3>
 
 <pre><code>GET https://leefplezier.roqua.nl/api/v1/questionnaires/leefplz_db
 </code></pre>
