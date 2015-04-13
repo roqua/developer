@@ -1,5 +1,4 @@
 ---
-title: Quby
 ---
 
-V1 documentation
+This repo is deprecated. All content has been moved to https://github.com/roqua/documentation/

@@ -1,5 +1,4 @@
 ---
-title: Authentication
 ---
 
-HTTP Basic authentication over SSL.
+This repo is deprecated. All content has been moved to https://github.com/roqua/documentation/

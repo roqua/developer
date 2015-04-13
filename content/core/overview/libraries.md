@@ -1,7 +1,4 @@
 ---
-title: Libraries
 ---
 
-## Client Libraries
-
-* [Ruby](https://rubygems.org/gems/roqua-core-api/)
+This repo is deprecated. All content has been moved to https://github.com/roqua/documentation/
